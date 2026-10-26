@@ -1,0 +1,18 @@
+{
+  "name": "learn-arduino-clone",
+  "version": "1.0.0",
+  "description": "Clone of learn-arduino-red.vercel.app — interactive 3D Arduino lessons",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "npx serve -s . -l 3000"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  }
+}

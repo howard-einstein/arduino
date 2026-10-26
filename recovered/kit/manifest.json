@@ -1,0 +1,88 @@
+{
+  "source": {
+    "path": "/home/carlosdev/projects/aprender-arduino/assets/kit-Ce41oYCW.js",
+    "snapshot_path": "/tmp/rea-wakaru-AaP2iP/inputs/bundle.js",
+    "sha256": "c7cb2d0daaae88b981ddac668292df1ff59f722fe8a9cfdf2811996e07b31682",
+    "bytes": 283340,
+    "published_copy": {
+      "path": "/home/carlosdev/projects/aprender-arduino/recovered/kit/inputs/bundle.js",
+      "sha256": "c7cb2d0daaae88b981ddac668292df1ff59f722fe8a9cfdf2811996e07b31682",
+      "bytes": 283340
+    }
+  },
+  "engine": {
+    "id": "wakaru",
+    "version": "1.14.0",
+    "executable": {
+      "path": "/home/carlosdev/.local/bin/wakaru",
+      "sha256": "664fa06782a61eda7ed15885134b52525fd565dd77607e642062ceb6cd927c38",
+      "bytes": 26793296
+    },
+    "audited_source_revision": "8219bf5016a063d7fb215101a8c45d5959ec733f",
+    "executed_source_revision": null
+  },
+  "options": {
+    "extraction_mode": "structural",
+    "rewrite_level": "standard"
+  },
+  "status": "complete",
+  "detected_formats": [],
+  "reported_safety": "normal",
+  "reported_strategy": "structural",
+  "reported_format": "unknown",
+  "total": 1,
+  "failed": 0,
+  "modules": [
+    {
+      "reported_filename": "bundle.js",
+      "reported_status": "decompiled",
+      "artifact": {
+        "path": "/home/carlosdev/projects/aprender-arduino/recovered/kit/modules/bundle.js",
+        "sha256": "4a17fe9cc7d08d323c321a2bf32b8e906ec01866a63eb92c88c0bb590b497eba",
+        "bytes": 519800
+      },
+      "source_map": {
+        "path": "/home/carlosdev/projects/aprender-arduino/recovered/kit/modules/bundle.js.map",
+        "sha256": "44e224b8298af3efbc6336d21611539420001b82cba51d552cadc3b5fd66e10f",
+        "bytes": 463027
+      },
+      "provenance": {
+        "reported_input": "/tmp/rea-wakaru-AaP2iP/inputs/bundle.js",
+        "original_path": "/home/carlosdev/projects/aprender-arduino/assets/kit-Ce41oYCW.js",
+        "original_sha256": "c7cb2d0daaae88b981ddac668292df1ff59f722fe8a9cfdf2811996e07b31682",
+        "extraction": "structural",
+        "byte_ranges": [
+          {
+            "start": 0,
+            "end": 283340
+          }
+        ],
+        "context_byte_ranges": [],
+        "range_semantics": "half-open-utf8-bytes"
+      }
+    }
+  ],
+  "warnings": [],
+  "report": {
+    "path": "/home/carlosdev/projects/aprender-arduino/recovered/kit/reports/stdout.json",
+    "sha256": "32f7e4f59d44c514bd3508e2035739a38c9e94746b85698d98a262007f2fdedb",
+    "bytes": 174
+  },
+  "provenance": {
+    "path": "/home/carlosdev/projects/aprender-arduino/recovered/kit/reports/provenance.json",
+    "sha256": "3b27e4caad404767ac2f641c17ab3ef1fce64e6641e7da2736c1457ab156db3d",
+    "bytes": 196
+  },
+  "analysis_input": {
+    "input_path": "/home/carlosdev/projects/aprender-arduino/recovered/kit/modules",
+    "format": "directory"
+  },
+  "runtime_equivalence": "unknown",
+  "limitations": [
+    "Recovered sources are derived artifacts; original variable names and runtime equivalence are not established.",
+    "Extraction ranges refer to half-open UTF-8 byte offsets in the original input, not rewritten line positions or whole-bundle coverage.",
+    "Emitted source maps are preserved as reported by the engine; their mapping accuracy is not independently established.",
+    "Inspection mode may produce non-executable regions. No input or recovered application code is executed.",
+    "Linux adapter: one worker, 1 GiB address-space ceiling, 120-second deadline, 64 MiB total input, 128 MiB output, 10000 output entries and 8 MiB per diagnostic/report stream. Resource limits are per operation, not aggregate host containment."
+  ]
+}

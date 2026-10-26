@@ -1,0 +1,3830 @@
+npm notice run npx
+npm notice run 'prettier' --parser babel --print-width 120 --tab-width 2 /tmp/arduino_clone/assets/index-DUxJjXqx.js
+const __vite__mapDeps = (
+  i,
+  m = __vite__mapDeps,
+  d = m.f || (m.f = ["assets/stage-btHE6-0n.js", "assets/kit-Ce41oYCW.js", "assets/thumbs-gagaX1E4.js"]),
+) => i.map((i) => d[i]);
+(function () {
+  let e = document.createElement(`link`).relList;
+  if (e && e.supports && e.supports(`modulepreload`)) return;
+  for (let e of document.querySelectorAll(`link[rel="modulepreload"]`)) n(e);
+  new MutationObserver((e) => {
+    for (let t of e)
+      if (t.type === `childList`) for (let e of t.addedNodes) e.tagName === `LINK` && e.rel === `modulepreload` && n(e);
+  }).observe(document, { childList: !0, subtree: !0 });
+  function t(e) {
+    let t = {};
+    return (
+      e.integrity && (t.integrity = e.integrity),
+      e.referrerPolicy && (t.referrerPolicy = e.referrerPolicy),
+      (t.credentials =
+        e.crossOrigin === `use-credentials` ? `include` : e.crossOrigin === `anonymous` ? `omit` : `same-origin`),
+      t
+    );
+  }
+  function n(e) {
+    if (e.ep) return;
+    e.ep = !0;
+    let n = t(e);
+    fetch(e.href, n);
+  }
+})();
+var e = [
+    [`Microcontroller`, `ATmega328P`],
+    [`Operating voltage`, `5 V`],
+    [`Input voltage`, `7–12 V`],
+    [`Digital I/O pins`, `14 (6 PWM)`],
+    [`Analog inputs`, `6`],
+    [`Flash memory`, `32 KB`],
+    [`SRAM / EEPROM`, `2 KB / 1 KB`],
+    [`Clock speed`, `16 MHz`],
+    [`Size`, `68.6 × 53.4 mm`],
+  ],
+  t = {
+    key: `color`,
+    part: `led`,
+    label: `Colour`,
+    type: `swatch`,
+    value: `red`,
+    options: [
+      { value: `red`, label: `Red`, color: `#e8392e` },
+      { value: `yellow`, label: `Yellow`, color: `#f2c23a` },
+      { value: `green`, label: `Green`, color: `#3fbf6a` },
+      { value: `blue`, label: `Blue`, color: `#3d7be0` },
+      { value: `white`, label: `White`, color: `#f2efe6` },
+    ],
+  },
+  n = [
+    {
+      key: `obstacle`,
+      part: `obstacle`,
+      label: `Obstacle`,
+      type: `choice`,
+      value: `car`,
+      options: [
+        { value: `car`, label: `Car` },
+        { value: `box`, label: `Box` },
+        { value: `ball`, label: `Ball` },
+        { value: `wall`, label: `Wall` },
+      ],
+    },
+    { key: `gap`, part: `obstacle`, label: `Distance`, type: `range`, min: 5, max: 50, step: 1, value: 30, unit: `cm` },
+    { key: `sweep`, part: `obstacle`, label: `Drive back and forth while running`, type: `toggle`, value: !0 },
+  ],
+  r = {
+    purple: { rgb: [170, 0, 255], color: `#a43cf0`, label: `Purple` },
+    pink: { rgb: [255, 30, 110], color: `#f2457f`, label: `Pink` },
+    orange: { rgb: [255, 90, 0], color: `#f57a1f`, label: `Orange` },
+    yellow: { rgb: [255, 190, 0], color: `#f5c330`, label: `Yellow` },
+    teal: { rgb: [0, 200, 150], color: `#1fbf98`, label: `Teal` },
+    white: { rgb: [255, 255, 255], color: `#f4f0e8`, label: `White` },
+  },
+  i = {
+    scale: [262, 294, 330, 349, 392, 440, 494, 523],
+    twinkle: [262, 262, 392, 392, 440, 440, 392, 349, 349, 330, 330, 294, 294, 262],
+    ode: [330, 330, 349, 392, 392, 349, 330, 294, 262, 262, 294, 330, 330, 294, 294],
+  };
+function a(e, t) {
+  let n = [];
+  for (let r = 0; r < e.length; r += t) n.push(`  ${e.slice(r, r + t).join(`, `)}`);
+  return `int melody[] = {\n${n.join(`,
+`)}\n};`;
+}
+var o = [
+  {
+    id: `board`,
+    title: `Meet the board`,
+    cardTitle: `1. Meet the<br />board`,
+    thumb: `board`,
+    heading: `Arduino Uno`,
+    lede: `The Arduino Uno is a popular microcontroller board based on the ATmega328P. It’s easy to use and perfect for learning electronics, programming, and prototyping.`,
+    features: [
+      [`chip`, `Open-source hardware`],
+      [`bulb`, `Wide community support`],
+      [`gear`, `Used in education, hobby projects, and<br />real-world applications`],
+    ],
+    pinout: [
+      [`D0–D13`, `Digital I/O`, `Read buttons, drive LEDs. ~3, 5, 6, 9, 10, 11 do PWM.`, `#2a56a3`],
+      [`A0–A5`, `Analog in`, `10-bit readings, 0–1023 for 0–5 V.`, `#1aa3a1`],
+      [`5V · 3.3V`, `Power out`, `Regulated supply for sensors and modules.`, `#d64a3a`],
+      [`GND`, `Ground`, `Every circuit returns here.`, `#2f3547`],
+      [`VIN`, `Power in`, `Raw jack voltage, 7–12 V.`, `#c0652d`],
+      [`RESET`, `Reset`, `Pull LOW to restart the sketch.`, `#8e9094`],
+    ],
+    example: [
+      `<code>setup()</code> runs once when the board powers up or resets.`,
+      `<code>pinMode(LED_BUILTIN, OUTPUT)</code> makes pin 13 — wired to the on-board “L” LED — an output.`,
+      `<code>loop()</code> then repeats forever. <code>digitalWrite(…, HIGH)</code> puts 5 V on the pin and lights the LED.`,
+      `Press <b>Run</b> to upload: watch TX/RX flicker, then the L LED come on. Click any part to learn what it does.`,
+    ],
+    specs: e,
+    params: [],
+    code: `void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(1000);
+}`,
+    callouts: [
+      {
+        anchor: `usb`,
+        icon: `usb`,
+        tall: !0,
+        title: `USB Port`,
+        body: `Connects to your computer<br />for programming and power.`,
+        x: -498,
+        y: -314,
+        w: 275,
+        side: `bottom`,
+        at: 131,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `mcu`,
+        via: `mcuWay`,
+        icon: `chip`,
+        title: `Microcontroller`,
+        body: `ATmega328P runs<br />your code.`,
+        x: -112,
+        y: -347,
+        w: 268,
+        side: `bottom`,
+        at: 84,
+      },
+      {
+        anchor: `digital`,
+        icon: `pins`,
+        title: `Digital Pins`,
+        body: `Pins 0–13 for digital<br />input/output.<br />(~ PWM on some pins)`,
+        x: 263,
+        y: -301,
+        w: 255,
+        side: `left`,
+        at: 59,
+        leg: 36,
+        approach: `above`,
+      },
+      {
+        anchor: `jack`,
+        icon: `bolt`,
+        title: `Power Jack`,
+        body: `External DC power<br />(7–12V recommended).`,
+        x: -498,
+        y: 125,
+        w: 253,
+        side: `top`,
+        at: 89,
+        leg: 48,
+        ring: !0,
+      },
+      {
+        anchor: `power`,
+        icon: `plug`,
+        title: `Power Pins`,
+        body: `5V, 3.3V, GND and<br />VIN for power.`,
+        x: -198,
+        y: 195,
+        w: 225,
+        side: `top`,
+        at: 75,
+        leg: 32,
+        ring: !0,
+      },
+      {
+        anchor: `analog`,
+        icon: `wave`,
+        wide: !0,
+        title: `Analog Pins`,
+        body: `A0–A5 for reading<br />analog signals.`,
+        x: 270,
+        y: 183,
+        w: 223,
+        side: `left`,
+        at: 54,
+        leg: 46,
+        ring: !0,
+      },
+    ],
+    sim: `builtin`,
+  },
+  {
+    id: `blink`,
+    title: `Blink an LED`,
+    cardTitle: `2. Blink an LED`,
+    thumb: `led`,
+    heading: `Blink an LED`,
+    lede: `Your first circuit: an LED and a resistor on a breadboard, driven by pin 13. Switching the pin on and off with a pause in between makes it blink.`,
+    features: [
+      [`pin`, `Digital output with <code>digitalWrite()</code>`],
+      [`resistor`, `Click the resistor to try other values`],
+      [`clock`, `Click the LED to change its colour and timing`],
+    ],
+    pinout: [
+      [`D13`, `Resistor → LED (+)`, `The sketch switches this pin HIGH and LOW.`, `#f0a53a`],
+      [`GND`, `LED (−)`, `The short leg returns current to the board.`, `#2f3547`],
+    ],
+    example: [
+      `<code>const int LED_PIN = 13;</code> gives the pin a readable name.`,
+      `In <code>setup()</code>, <code>pinMode(LED_PIN, OUTPUT)</code> lets the pin drive current.`,
+      `<code>loop()</code> writes HIGH, waits, writes LOW, waits again. The two delays set the rhythm.`,
+      `A bigger resistor lets less current through: try 10 kΩ and watch the LED dim.`,
+    ],
+    specs: [
+      [`LED`, `5 mm, 1.8–3.2 V forward`],
+      [`Max current`, `20 mA`],
+      [`Resistor`, `220 Ω (red-red-brown)`],
+      [`LED current`, `≈ (5 − 2) ÷ 220 ≈ 14 mA`],
+      [`Pin 13 limit`, `40 mA absolute max`],
+    ],
+    params: [
+      t,
+      { key: `on`, part: `led`, label: `On for`, type: `range`, min: 50, max: 2e3, step: 50, value: 500, unit: `ms` },
+      { key: `off`, part: `led`, label: `Off for`, type: `range`, min: 50, max: 2e3, step: 50, value: 500, unit: `ms` },
+      {
+        key: `ohms`,
+        part: `resistor`,
+        label: `Resistance`,
+        type: `choice`,
+        value: 220,
+        options: [
+          { value: 220, label: `220 Ω`, note: `About 14 mA: bright and safe.` },
+          { value: 1e3, label: `1 kΩ`, note: `About 3 mA: noticeably dimmer.` },
+          { value: 1e4, label: `10 kΩ`, note: `About 0.3 mA: barely glowing.` },
+        ],
+      },
+    ],
+    code: `const int LED_PIN = 13;
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH);
+  delay({{on}});
+  digitalWrite(LED_PIN, LOW);
+  delay({{off}});
+}`,
+    callouts: [
+      {
+        anchor: `part:led`,
+        icon: `led`,
+        title: `LED`,
+        body: `Lights up whenever pin 13 goes HIGH.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D13`,
+        icon: `pin`,
+        title: `Pin 13`,
+        body: `Your sketch switches it HIGH and LOW.`,
+        x: -162,
+        y: -350,
+        w: 250,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:GND`,
+        icon: `ground`,
+        title: `GND`,
+        body: `The short leg (−) returns current here.`,
+        x: -498,
+        y: -330,
+        w: 236,
+        side: `right`,
+        at: 46,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `part:resistor`,
+        icon: `resistor`,
+        wide: !0,
+        title: `Resistor`,
+        body: `Stops the LED drawing too much current.`,
+        x: 270,
+        y: 160,
+        w: 238,
+        side: `left`,
+        at: 46,
+        leg: 40,
+        ring: !0,
+      },
+      {
+        anchor: `ledL`,
+        icon: `bulb`,
+        title: `Built-in LED`,
+        body: `The “L” LED mirrors pin 13 on the board.`,
+        x: -498,
+        y: 130,
+        w: 250,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `blink`,
+  },
+  {
+    id: `button`,
+    title: `Push a button`,
+    cardTitle: `3. Push a button`,
+    thumb: `button`,
+    heading: `Push a button`,
+    lede: `Inputs let the board sense the world. A push button connects pin 2 to 5 V while you hold it; a pull-down resistor keeps the pin at 0 V when you let go.`,
+    features: [
+      [`button`, `Click and hold the button in the scene`],
+      [`pin`, `Read a pin with <code>digitalRead()</code>`],
+      [`logic`, `Switch between “hold” and “toggle” logic`],
+    ],
+    pinout: [
+      [`5V`, `Button (left)`, `One side of the switch.`, `#d64a3a`],
+      [`D2`, `Button (right) + 10 kΩ`, `Reads HIGH while the button is held.`, `#3d6fc4`],
+      [`GND`, `10 kΩ pull-down`, `Pulls D2 LOW when the button is up.`, `#2f3547`],
+      [`D13`, `220 Ω → LED`, `The output you control.`, `#f0a53a`],
+    ],
+    example: [
+      `<code>pinMode(BUTTON, INPUT)</code> makes pin 2 listen instead of drive.`,
+      `<code>digitalRead(BUTTON)</code> returns HIGH while the button is down, LOW otherwise.`,
+      `In <b>hold</b> mode the LED simply copies the button.`,
+      `In <b>toggle</b> mode the sketch remembers the last reading and flips the LED on each new press.`,
+    ],
+    specs: [
+      [`Button`, `12 mm tactile switch`],
+      [`Pull-down`, `10 kΩ to GND`],
+      [`Logic levels`, `LOW < 1.5 V, HIGH > 3 V`],
+      [`Bounce`, `Contacts chatter for ~5 ms`],
+      [`Tip`, `<code>INPUT_PULLUP</code> needs no resistor`],
+    ],
+    params: [
+      {
+        key: `mode`,
+        part: `button`,
+        label: `Logic`,
+        type: `choice`,
+        value: `hold`,
+        options: [
+          {
+            value: `hold`,
+            label: `Hold`,
+            note: `The LED is on only while you hold the button.`,
+            code: {
+              globals: ``,
+              logic: `  int pressed = digitalRead(BUTTON);
+  digitalWrite(LED, pressed);`,
+            },
+          },
+          {
+            value: `toggle`,
+            label: `Toggle`,
+            note: `Each press flips the LED on or off.`,
+            code: {
+              globals: `
+int last = LOW;
+bool lit = false;
+`,
+              logic: `  int now = digitalRead(BUTTON);
+  if (now == HIGH && last == LOW) {
+    lit = !lit;
+    digitalWrite(LED, lit);
+    delay(30);  // debounce
+  }
+  last = now;`,
+            },
+          },
+        ],
+      },
+      t,
+    ],
+    code: `const int BUTTON = 2;
+const int LED = 13;
+{{mode.globals}}
+void setup() {
+  pinMode(BUTTON, INPUT);
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+{{mode.logic}}
+}`,
+    callouts: [
+      {
+        anchor: `part:button`,
+        icon: `button`,
+        title: `Push Button`,
+        body: `Click and hold it — pin 2 reads HIGH.`,
+        x: -162,
+        y: -350,
+        w: 256,
+        side: `bottom`,
+        at: 200,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `part:pulldown`,
+        icon: `resistor`,
+        wide: !0,
+        title: `Pull-down`,
+        body: `10 kΩ keeps pin 2 LOW when released.`,
+        x: 270,
+        y: 160,
+        w: 238,
+        side: `left`,
+        at: 46,
+        leg: 40,
+        ring: !0,
+      },
+      {
+        anchor: `part:led`,
+        icon: `led`,
+        title: `LED`,
+        body: `Your sketch decides when it lights.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D2`,
+        icon: `pin`,
+        title: `Pin 2 (input)`,
+        body: `<code>digitalRead()</code> sees HIGH or LOW.`,
+        x: -498,
+        y: 130,
+        w: 250,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `button`,
+  },
+  {
+    id: `knob`,
+    title: `Turn a knob`,
+    cardTitle: `4. Turn a knob`,
+    thumb: `pot`,
+    heading: `Turn a knob`,
+    lede: `A potentiometer is a resistor with a slider. Turning the knob moves the middle leg anywhere from 0 V to 5 V, and an analog pin turns that into a number.`,
+    features: [
+      [`knob`, `Drag around the knob to turn it`],
+      [`wave`, `<code>analogRead()</code> gives 0–1023`],
+      [`pwm`, `<code>analogWrite()</code> dims the LED, 0–255`],
+    ],
+    pinout: [
+      [`5V`, `Pot (left)`, `Top of the voltage divider.`, `#d64a3a`],
+      [`A0`, `Pot (middle)`, `The wiper: 0–5 V as you turn.`, `#3fae6a`],
+      [`GND`, `Pot (right)`, `Bottom of the divider.`, `#2f3547`],
+      [`~D9`, `220 Ω → LED`, `PWM output sets the brightness.`, `#f0a53a`],
+    ],
+    example: [
+      `<code>analogRead(POT)</code> measures the wiper voltage: 0 V is 0, 5 V is 1023.`,
+      `PWM only goes up to 255, so <code>value / 4</code> scales the reading to fit.`,
+      `<code>analogWrite(LED, …)</code> pulses pin 9 so fast the LED looks dimmed.`,
+      `Open the serial monitor (press Run) to watch the numbers as you turn.`,
+    ],
+    specs: [
+      [`Potentiometer`, `10 kΩ linear, 270° travel`],
+      [`ADC`, `10-bit, 0–1023`],
+      [`Resolution`, `≈ 4.9 mV per step`],
+      [`PWM`, `8-bit, 0–255 at ~490 Hz`],
+      [`Read time`, `≈ 100 µs per <code>analogRead()</code>`],
+    ],
+    params: [
+      { key: `pot`, part: `pot`, label: `Knob position`, type: `range`, min: 0, max: 1023, step: 1, value: 620 },
+      t,
+    ],
+    code: `const int POT = A0;
+const int LED = 9;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  int value = analogRead(POT);  // 0-1023
+  analogWrite(LED, value / 4);  // 0-255
+  Serial.println(value);
+  delay(50);
+}`,
+    callouts: [
+      {
+        anchor: `part:pot`,
+        icon: `knob`,
+        title: `Potentiometer`,
+        body: `Drag around the knob to turn it.`,
+        x: -162,
+        y: -350,
+        w: 252,
+        side: `bottom`,
+        at: 200,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:A0`,
+        icon: `wave`,
+        wide: !0,
+        title: `Pin A0`,
+        body: `Reads the knob as a number, 0–1023.`,
+        x: -498,
+        y: 130,
+        w: 252,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+      {
+        anchor: `part:led`,
+        icon: `led`,
+        title: `LED`,
+        body: `Brightness follows the knob.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D9`,
+        icon: `pwm`,
+        wide: !0,
+        title: `Pin ~9 (PWM)`,
+        body: `Dims the LED with fast pulses.`,
+        x: 270,
+        y: 160,
+        w: 238,
+        side: `left`,
+        at: 46,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `knob`,
+  },
+  {
+    id: `rgb`,
+    title: `Mix colours`,
+    cardTitle: `5. Mix colours`,
+    thumb: `rgb`,
+    heading: `Mix colours`,
+    lede: `An RGB LED is three LEDs — red, green and blue — under one milky lens. Dim each one with PWM and the light blends into almost any colour you like.`,
+    features: [
+      [`pwm`, `One PWM pin per colour, 0–255 each`],
+      [`bulb`, `Light mixes: red + green makes yellow`],
+      [`led`, `Click the LED to mix your own colour`],
+    ],
+    pinout: [
+      [`~D9`, `220 Ω → Red leg`, `Brightness of the red LED.`, `#ee7f62`],
+      [`~D10`, `220 Ω → Green leg`, `Brightness of the green LED.`, `#3fae6a`],
+      [`~D11`, `220 Ω → Blue leg`, `Brightness of the blue LED.`, `#3d6fc4`],
+      [`GND`, `Common (longest leg)`, `All three LEDs return here.`, `#2f3547`],
+    ],
+    example: [
+      `Pins <code>9</code>, <code>10</code> and <code>11</code> all support PWM, so each colour can be dimmed on its own.`,
+      `<code>analogWrite(RED, 170)</code> runs the red LED at 170 out of 255 — about two-thirds brightness.`,
+      `Mixing happens in your eye: red and blue together look purple, all three at 255 look white.`,
+      `Each colour gets its own 220 Ω resistor, so no single LED draws too much current.`,
+    ],
+    specs: [
+      [`LED`, `5 mm RGB, common cathode`],
+      [`Forward voltage`, `R 2.0 V · G 3.0 V · B 3.0 V`],
+      [`Resistors`, `3 × 220 Ω`],
+      [`Colours`, `256³ ≈ 16.7 million`],
+      [`PWM pins used`, `~9, ~10, ~11`],
+    ],
+    params: [
+      {
+        key: `preset`,
+        part: `rgb`,
+        label: `Presets`,
+        type: `swatch`,
+        value: `purple`,
+        options: Object.entries(r).map(([e, t]) => ({ value: e, label: t.label, color: t.color })),
+      },
+      { key: `r`, part: `rgb`, label: `Red`, type: `range`, min: 0, max: 255, step: 1, value: 170, tint: `#e8392e` },
+      { key: `g`, part: `rgb`, label: `Green`, type: `range`, min: 0, max: 255, step: 1, value: 0, tint: `#3fbf6a` },
+      { key: `b`, part: `rgb`, label: `Blue`, type: `range`, min: 0, max: 255, step: 1, value: 255, tint: `#3d7be0` },
+    ],
+    constrain(e, t) {
+      let n = r[e.preset];
+      t === `preset` && n
+        ? ([e.r, e.g, e.b] = n.rgb)
+        : (e.preset = Object.keys(r).find((t) => r[t].rgb.every((t, n) => t === [e.r, e.g, e.b][n])) ?? `custom`);
+    },
+    code: `const int RED = 9;
+const int GREEN = 10;
+const int BLUE = 11;
+
+void setup() {
+  pinMode(RED, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+  pinMode(BLUE, OUTPUT);
+}
+
+void loop() {
+  analogWrite(RED, {{r}});
+  analogWrite(GREEN, {{g}});
+  analogWrite(BLUE, {{b}});
+  delay(100);
+}`,
+    callouts: [
+      {
+        anchor: `part:rgb`,
+        icon: `rgb`,
+        title: `RGB LED`,
+        body: `Three colours in one lens — click it to mix.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D10`,
+        icon: `pwm`,
+        wide: !0,
+        title: `Pins ~9 ~10 ~11`,
+        body: `One PWM pin for each colour.`,
+        x: -162,
+        y: -350,
+        w: 252,
+        side: `bottom`,
+        at: 70,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:GND`,
+        icon: `ground`,
+        title: `GND`,
+        body: `The longest leg is the shared ground.`,
+        x: -498,
+        y: -330,
+        w: 236,
+        side: `right`,
+        at: 46,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `part:r-green`,
+        icon: `resistor`,
+        wide: !0,
+        title: `3 Resistors`,
+        body: `220 Ω on each colour keeps the current safe.`,
+        x: 270,
+        y: 160,
+        w: 248,
+        side: `left`,
+        at: 46,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `rgb`,
+  },
+  {
+    id: `light`,
+    title: `Sense light`,
+    cardTitle: `6. Sense light`,
+    thumb: `lamp`,
+    heading: `Sense light`,
+    lede: `A light-dependent resistor (LDR) conducts better the more light falls on it. Paired with a fixed resistor it turns brightness into a voltage — just right for a night light that comes on when it gets dark.`,
+    features: [
+      [`wave`, `Read brightness with <code>analogRead()</code>`],
+      [`lamp`, `Drag the lamp away, or switch it off`],
+      [`logic`, `Switch the LED on below a threshold`],
+    ],
+    pinout: [
+      [`5V`, `LDR (left leg)`, `Top of the voltage divider.`, `#d64a3a`],
+      [`A0`, `LDR + 10 kΩ`, `The middle of the divider: higher when brighter.`, `#3fae6a`],
+      [`GND`, `10 kΩ`, `Bottom of the divider.`, `#2f3547`],
+      [`~D9`, `220 Ω → LED`, `The night light.`, `#f0a53a`],
+      [`GND`, `LED (−)`, `The LED’s return path.`, `#2f3547`],
+    ],
+    example: [
+      `The LDR and the 10 kΩ resistor form a voltage divider: more light, lower LDR resistance, higher voltage on A0.`,
+      `<code>analogRead(SENSOR)</code> turns that voltage into a number from 0 (dark) to 1023 (very bright).`,
+      `If the reading drops below the threshold the sketch decides it is dark and switches the LED on.`,
+      `Move the lamp and watch the reading in the serial monitor — light falls off quickly with distance.`,
+    ],
+    specs: [
+      [`LDR`, `GL5528 photoresistor`],
+      [`In daylight`, `≈ 10–20 kΩ`],
+      [`In the dark`, `≈ 1 MΩ`],
+      [`Divider resistor`, `10 kΩ to GND`],
+      [`Response time`, `≈ 20–30 ms`],
+    ],
+    params: [
+      {
+        key: `dist`,
+        part: `lamp`,
+        label: `Lamp distance`,
+        type: `range`,
+        min: 5,
+        max: 50,
+        step: 1,
+        value: 18,
+        unit: `cm`,
+      },
+      { key: `lamp`, part: `lamp`, label: `Lamp switched on`, type: `toggle`, value: !0 },
+      { key: `threshold`, part: `ldr`, label: `Dark below`, type: `range`, min: 50, max: 1e3, step: 10, value: 400 },
+    ],
+    code: `const int SENSOR = A0;
+const int LED = 9;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  int light = analogRead(SENSOR);  // more light = higher
+  Serial.println(light);
+
+  if (light < {{threshold}}) {
+    digitalWrite(LED, HIGH);  // dark: night light on
+  } else {
+    digitalWrite(LED, LOW);
+  }
+  delay(100);
+}`,
+    callouts: [
+      {
+        anchor: `part:led`,
+        icon: `led`,
+        title: `Night Light`,
+        body: `Comes on when the reading says “dark”.`,
+        x: -162,
+        y: -350,
+        w: 252,
+        side: `bottom`,
+        at: 200,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `part:ldr`,
+        icon: `sun`,
+        title: `Light Sensor`,
+        body: `Less resistance the more light it gets.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:A0`,
+        icon: `wave`,
+        wide: !0,
+        title: `Pin A0`,
+        body: `Reads the divider as 0–1023.`,
+        x: -498,
+        y: 130,
+        w: 250,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+      {
+        anchor: `part:lamp`,
+        icon: `lamp`,
+        title: `Desk Lamp`,
+        body: `Drag it away, or switch it off.`,
+        x: 250,
+        y: 160,
+        w: 238,
+        side: `top`,
+        at: 72,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `light`,
+  },
+  {
+    id: `sensor`,
+    title: `Read a sensor`,
+    cardTitle: `7. Read a sensor`,
+    thumb: `sensor`,
+    heading: `Read a sensor`,
+    lede: `The HC-SR04 sends out a burst of ultrasound and listens for the echo. Timing how long it takes tells you how far away the obstacle is — click it to swap it or drag it closer.`,
+    features: [
+      [`wave`, `Trigger a ping, time the echo with <code>pulseIn()</code>`],
+      [`ruler`, `Every 58 µs of echo is about 1 cm`],
+      [`car`, `Swap the obstacle: some echo better than others`],
+    ],
+    pinout: [
+      [`5V`, `VCC`, `Powers the sensor.`, `#d64a3a`],
+      [`GND`, `Gnd`, `Common ground.`, `#2f3547`],
+      [`D9`, `Trig`, `A 10 µs HIGH pulse starts a ping.`, `#f0b53a`],
+      [`D10`, `Echo`, `Stays HIGH for as long as the sound travels.`, `#3fae6a`],
+    ],
+    example: [
+      `<code>Serial.begin(9600)</code> opens the serial monitor at 9600 baud.`,
+      `A 10 µs pulse on <code>TRIG</code> fires eight 40 kHz pulses from the transmitter.`,
+      `<code>pulseIn(ECHO, HIGH)</code> measures the echo time in microseconds.`,
+      `Dividing by 58 converts it to centimetres (sound travels there and back).`,
+    ],
+    specs: [
+      [`Range`, `2–400 cm`],
+      [`Resolution`, `≈ 3 mm`],
+      [`Frequency`, `40 kHz`],
+      [`Beam angle`, `≈ 15°`],
+      [`Supply`, `5 V, 15 mA`],
+    ],
+    params: [
+      ...n,
+      {
+        key: `interval`,
+        part: `sensor`,
+        label: `Read every`,
+        type: `range`,
+        min: 50,
+        max: 1e3,
+        step: 50,
+        value: 100,
+        unit: `ms`,
+      },
+    ],
+    code: `const int TRIG = 9;
+const int ECHO = 10;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+}
+
+void loop() {
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  long cm = pulseIn(ECHO, HIGH) / 58;
+  Serial.println(cm);
+  delay({{interval}});
+}`,
+    callouts: [
+      {
+        anchor: `part:sensor`,
+        icon: `sensor`,
+        wide: !0,
+        title: `HC-SR04`,
+        body: `Pings at 40 kHz and times the echo.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D9`,
+        icon: `pins`,
+        title: `Trig · Echo`,
+        body: `Pin 9 fires the ping, pin 10 hears the echo.`,
+        x: -162,
+        y: -350,
+        w: 262,
+        side: `bottom`,
+        at: 70,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:5V`,
+        icon: `plug`,
+        title: `5V · GND`,
+        body: `Power for the sensor, straight from the board.`,
+        x: -498,
+        y: 130,
+        w: 250,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+      {
+        anchor: `part:obstacle`,
+        icon: `car`,
+        wide: !0,
+        title: `Obstacle`,
+        body: `Click to swap it, drag to move it.`,
+        x: 270,
+        y: 160,
+        w: 238,
+        side: `left`,
+        at: 46,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `sensor`,
+  },
+  {
+    id: `sound`,
+    title: `Make a sound`,
+    cardTitle: `8. Make a sound`,
+    thumb: `buzzer`,
+    heading: `Make a sound`,
+    lede: `A piezo buzzer clicks every time its pin flips. Flip it hundreds of times a second and you hear a note — <code>tone()</code> does exactly that.`,
+    features: [
+      [`speaker`, `Play notes with <code>tone(pin, Hz, ms)</code>`],
+      [`console`, `Store a tune in an array`],
+      [`clock`, `Click the buzzer to pick a tune and tempo`],
+    ],
+    pinout: [
+      [`D8`, `Buzzer (+)`, `Toggled at the note’s frequency.`, `#f0a53a`],
+      [`GND`, `Buzzer (−)`, `Return path.`, `#2f3547`],
+    ],
+    example: [
+      `The <code>melody</code> array holds each note’s frequency in hertz: 262 Hz is middle C.`,
+      `<code>tone(BUZZER, hz, ms)</code> plays a square wave for <code>ms</code> milliseconds.`,
+      `The <code>delay</code> after each note leaves a short gap so repeated notes sound separate.`,
+      `After the last note the loop rests for a second, then starts again.`,
+    ],
+    specs: [
+      [`Buzzer`, `Passive piezo, 12 mm`],
+      [`Range`, `≈ 100 Hz – 10 kHz`],
+      [`Middle C`, `262 Hz`],
+      [`A above`, `440 Hz`],
+      [`Tip`, `An active buzzer only beeps at one pitch`],
+    ],
+    params: [
+      {
+        key: `melody`,
+        part: `buzzer`,
+        label: `Tune`,
+        type: `choice`,
+        value: `twinkle`,
+        options: [
+          { value: `scale`, label: `Scale`, note: `C major, one octave.`, code: { notes: a(i.scale, 4) } },
+          {
+            value: `twinkle`,
+            label: `Twinkle`,
+            note: `Twinkle, twinkle, little star.`,
+            code: { notes: a(i.twinkle, 7) },
+          },
+          { value: `ode`, label: `Ode to Joy`, note: `Beethoven’s Ninth, first phrase.`, code: { notes: a(i.ode, 5) } },
+        ],
+      },
+      {
+        key: `note`,
+        part: `buzzer`,
+        label: `Note length`,
+        type: `range`,
+        min: 80,
+        max: 500,
+        step: 10,
+        value: 220,
+        unit: `ms`,
+      },
+      {
+        key: `volume`,
+        part: `buzzer`,
+        label: `Speaker volume`,
+        type: `range`,
+        min: 0,
+        max: 100,
+        step: 5,
+        value: 40,
+        unit: `%`,
+      },
+    ],
+    code: `const int BUZZER = 8;
+{{melody.notes}}
+const int N = sizeof(melody) / sizeof(int);
+
+void setup() {}
+
+void loop() {
+  for (int i = 0; i < N; i++) {
+    tone(BUZZER, melody[i], {{note}});
+    delay({{note}} + 50);
+  }
+  delay(1000);
+}`,
+    callouts: [
+      {
+        anchor: `part:buzzer`,
+        icon: `speaker`,
+        title: `Piezo Buzzer`,
+        body: `Click it to pick a tune and tempo.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D8`,
+        icon: `pin`,
+        title: `Pin 8`,
+        body: `<code>tone()</code> toggles it at the note’s pitch.`,
+        x: -162,
+        y: -350,
+        w: 262,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:GND`,
+        icon: `ground`,
+        title: `GND`,
+        body: `The buzzer’s other leg.`,
+        x: -498,
+        y: -330,
+        w: 226,
+        side: `right`,
+        at: 46,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `mcu`,
+        icon: `chip`,
+        title: `Timer`,
+        body: `A hardware timer keeps each note in tune.`,
+        x: -498,
+        y: 130,
+        w: 250,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `sound`,
+  },
+  {
+    id: `motor`,
+    title: `Control a motor`,
+    cardTitle: `9. Control a motor`,
+    thumb: `motor`,
+    heading: `Control a motor`,
+    lede: `A pin can’t power a motor on its own, so a transistor does the heavy lifting. PWM switches it on and off very fast to set the speed.`,
+    features: [
+      [`pwm`, `Speed from 0 to 255 with <code>analogWrite()</code>`],
+      [`transistor`, `TIP120 switches the motor current`],
+      [`motor`, `Click the motor to change the ramp`],
+    ],
+    pinout: [
+      [`~D6`, `1 kΩ → Base`, `PWM signal from the sketch.`, `#ef8a3a`],
+      [`5V`, `Motor (+)`, `Motor supply.`, `#d64a3a`],
+      [`—`, `Motor (−) → Collector`, `The transistor completes the motor circuit.`, `#2f3547`],
+      [`GND`, `Emitter`, `Shared ground.`, `#2f3547`],
+    ],
+    example: [
+      `<code>analogWrite(MOTOR, s)</code> sets the PWM duty cycle: 0 is off, 255 is fully on.`,
+      `The <code>for</code> loop raises <code>s</code> step by step every 40 ms — a smooth ramp.`,
+      `After holding top speed, writing 0 lets the motor coast to a stop.`,
+      `Pins ~3, 5, 6, 9, 10 and 11 support PWM; the ~ on the board marks them.`,
+    ],
+    specs: [
+      [`Motor`, `3–6 V DC, ~200 mA`],
+      [`Transistor`, `TIP120 Darlington, 5 A`],
+      [`Base resistor`, `1 kΩ (brown-black-red)`],
+      [`PWM on pin 6`, `≈ 980 Hz`],
+      [`Tip`, `Add a flyback diode across the motor`],
+    ],
+    params: [
+      { key: `top`, part: `motor`, label: `Top speed`, type: `range`, min: 50, max: 255, step: 5, value: 255 },
+      { key: `step`, part: `motor`, label: `Ramp step`, type: `range`, min: 1, max: 25, step: 1, value: 5 },
+    ],
+    code: `const int MOTOR = 6;  // PWM pin
+
+void setup() {
+  pinMode(MOTOR, OUTPUT);
+}
+
+void loop() {
+  for (int s = 0; s <= {{top}}; s += {{step}}) {
+    analogWrite(MOTOR, s);
+    delay(40);
+  }
+  delay(1500);
+  analogWrite(MOTOR, 0);
+  delay(1500);
+}`,
+    callouts: [
+      {
+        anchor: `part:transistor`,
+        icon: `transistor`,
+        title: `Transistor`,
+        body: `A small base current switches the motor.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `part:r1k`,
+        icon: `resistor`,
+        wide: !0,
+        title: `1 kΩ Resistor`,
+        body: `Keeps the base current safe for the pin.`,
+        x: 26,
+        y: -350,
+        w: 248,
+        side: `bottom`,
+        at: 190,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D6`,
+        icon: `pwm`,
+        wide: !0,
+        title: `Pin ~6 (PWM)`,
+        body: `<code>analogWrite()</code> sets the speed, 0–255.`,
+        x: -300,
+        y: -350,
+        w: 260,
+        side: `bottom`,
+        at: 230,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `part:motor`,
+        icon: `motor`,
+        wide: !0,
+        title: `DC Motor`,
+        body: `Click it to change the ramp.`,
+        x: 270,
+        y: 160,
+        w: 238,
+        side: `left`,
+        at: 46,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `motor`,
+  },
+  {
+    id: `servo`,
+    title: `Sweep a servo`,
+    cardTitle: `10. Sweep a servo`,
+    thumb: `servo`,
+    heading: `Sweep a servo`,
+    lede: `A servo is a motor that knows where it is. Tell it an angle from 0° to 180° and it turns there and holds — perfect for arms, flaps and pointers.`,
+    features: [
+      [`servo`, `Position with <code>arm.write(angle)</code>`],
+      [`console`, `The Servo library makes the pulses for you`],
+      [`clock`, `Click the servo to change the sweep`],
+    ],
+    pinout: [
+      [`GND`, `Brown wire`, `Ground.`, `#7a5034`],
+      [`5V`, `Red wire`, `Power for the motor.`, `#d64a3a`],
+      [`D9`, `Orange wire`, `Signal: a 1–2 ms pulse every 20 ms.`, `#f0a53a`],
+    ],
+    example: [
+      `<code>#include &lt;Servo.h&gt;</code> brings in the library; <code>Servo arm;</code> makes one servo.`,
+      `<code>arm.attach(9)</code> starts sending position pulses on pin 9.`,
+      `The first <code>for</code> loop steps the angle up one degree at a time, the second steps it back.`,
+      `The <code>delay</code> sets how fast it sweeps: smaller is faster.`,
+    ],
+    specs: [
+      [`Servo`, `SG90 micro, 9 g`],
+      [`Travel`, `0–180°`],
+      [`Speed`, `≈ 0.1 s per 60°`],
+      [`Torque`, `1.8 kg·cm at 4.8 V`],
+      [`Signal`, `50 Hz, 0.5–2.4 ms pulses`],
+    ],
+    params: [
+      { key: `from`, part: `servo`, label: `From`, type: `range`, min: 0, max: 175, step: 5, value: 0, unit: `°` },
+      { key: `to`, part: `servo`, label: `To`, type: `range`, min: 5, max: 180, step: 5, value: 180, unit: `°` },
+      {
+        key: `wait`,
+        part: `servo`,
+        label: `Step delay`,
+        type: `range`,
+        min: 2,
+        max: 40,
+        step: 1,
+        value: 12,
+        unit: `ms`,
+      },
+    ],
+    constrain(e, t) {
+      e.from >= e.to && (t === `from` ? (e.to = Math.min(180, e.from + 5)) : (e.from = Math.max(0, e.to - 5)));
+    },
+    code: `#include <Servo.h>
+Servo arm;
+
+void setup() {
+  arm.attach(9);
+}
+
+void loop() {
+  for (int a = {{from}}; a <= {{to}}; a++) {
+    arm.write(a);
+    delay({{wait}});
+  }
+  for (int a = {{to}}; a >= {{from}}; a--) {
+    arm.write(a);
+    delay({{wait}});
+  }
+}`,
+    callouts: [
+      {
+        anchor: `part:servo`,
+        icon: `servo`,
+        title: `SG90 Servo`,
+        body: `Click it to change how far it sweeps.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:D9`,
+        icon: `pwm`,
+        wide: !0,
+        title: `Pin 9 (signal)`,
+        body: `Pulse width sets the angle.`,
+        x: -162,
+        y: -350,
+        w: 250,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `pin:5V`,
+        icon: `plug`,
+        title: `5V · GND`,
+        body: `The servo’s red and brown wires.`,
+        x: -498,
+        y: 130,
+        w: 250,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `servo`,
+  },
+  {
+    id: `project`,
+    title: `Build a project`,
+    cardTitle: `11. Build a project`,
+    thumb: `gears`,
+    heading: `Parking sensor`,
+    lede: `Put it all together: the distance sensor watches the obstacle and a traffic light tells the driver when to stop. Click the lights to move the thresholds.`,
+    features: [
+      [`logic`, `Decisions with comparisons`],
+      [`lights`, `Three outputs, one for each colour`],
+      [`sensor`, `Reuses the distance code from lesson 7`],
+    ],
+    pinout: [
+      [`5V · GND`, `Sensor power`, `GND is bridged to the light module.`, `#d64a3a`],
+      [`D9 · D10`, `Trig · Echo`, `Same as lesson 7.`, `#3d6fc4`],
+      [`D4`, `Red`, `On when the obstacle is close.`, `#ee7f62`],
+      [`D3`, `Yellow`, `On in between.`, `#f0b53a`],
+      [`D2`, `Green`, `On when it is far away.`, `#3fae6a`],
+    ],
+    example: [
+      `The loop measures distance exactly as in lesson 7.`,
+      `A comparison like <code>cm &gt; 30</code> is either true (1) or false (0).`,
+      `Writing it straight to a pin turns that LED on or off — no <code>if</code> needed.`,
+      `Only one condition can be true at a time, so exactly one light is lit.`,
+    ],
+    specs: [
+      [`Parts`, `Uno, HC-SR04, traffic light module`],
+      [`Wires`, `8 jumpers`],
+      [`Thresholds`, `Adjustable`],
+      [`Update rate`, `≈ 15 times a second`],
+      [`Next step`, `Add a buzzer from lesson 8`],
+    ],
+    params: [
+      ...n,
+      {
+        key: `far`,
+        part: `lights`,
+        label: `Green beyond`,
+        type: `range`,
+        min: 10,
+        max: 50,
+        step: 1,
+        value: 30,
+        unit: `cm`,
+      },
+      {
+        key: `near`,
+        part: `lights`,
+        label: `Red within`,
+        type: `range`,
+        min: 3,
+        max: 45,
+        step: 1,
+        value: 15,
+        unit: `cm`,
+      },
+    ],
+    constrain(e, t) {
+      e.near >= e.far && (t === `near` ? (e.far = Math.min(50, e.near + 1)) : (e.near = Math.max(3, e.far - 1)));
+    },
+    code: `const int TRIG = 9, ECHO = 10;
+const int RED = 4, YLW = 3, GRN = 2;
+
+void setup() {
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  for (int p = 2; p <= 4; p++)
+    pinMode(p, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  long cm = pulseIn(ECHO, HIGH) / 58;
+
+  digitalWrite(GRN, cm > {{far}});
+  digitalWrite(YLW, cm > {{near}} && cm <= {{far}});
+  digitalWrite(RED, cm <= {{near}});
+  delay(60);
+}`,
+    callouts: [
+      {
+        anchor: `part:sensor`,
+        icon: `sensor`,
+        wide: !0,
+        title: `Distance Sensor`,
+        body: `Keeps an eye on the obstacle.`,
+        x: 0,
+        y: -350,
+        w: 250,
+        side: `bottom`,
+        at: 200,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `part:lights`,
+        icon: `lights`,
+        title: `Traffic Light`,
+        body: `Click it to change the thresholds.`,
+        x: 290,
+        y: -350,
+        w: 238,
+        side: `bottom`,
+        at: 40,
+        leg: 30,
+        ring: !0,
+      },
+      {
+        anchor: `mcu`,
+        icon: `logic`,
+        title: `Your Logic`,
+        body: `Comparisons choose which light is on.`,
+        x: -498,
+        y: 130,
+        w: 250,
+        side: `top`,
+        at: 150,
+        leg: 40,
+        ring: !0,
+      },
+      {
+        anchor: `part:obstacle`,
+        icon: `car`,
+        wide: !0,
+        title: `Obstacle`,
+        body: `Drag it closer and watch the lights.`,
+        x: 270,
+        y: 160,
+        w: 238,
+        side: `left`,
+        at: 46,
+        leg: 40,
+        ring: !0,
+      },
+    ],
+    sim: `project`,
+  },
+];
+function s(e) {
+  return Object.fromEntries((e.params ?? []).map((e) => [e.key, e.value]));
+}
+function c(e, t) {
+  return l(e, t).replace(/\{\{(\w+)\}\}/g, (e, n) => String(t[n] ?? ``));
+}
+function l(e, t) {
+  return e.code.replace(
+    /\{\{(\w+)\.(\w+)\}\}/g,
+    (n, r, i) => e.params?.find((e) => e.key === r)?.options?.find((e) => e.value === t[r])?.code?.[i] ?? ``,
+  );
+}
+var u = 1672,
+  d = 941,
+  f = [
+    {
+      a: `tl`,
+      p: [
+        [90, 410],
+        [90, 104],
+        [99, 95],
+        [624, 95],
+        [655, 63],
+        [736, 63],
+        [771, 28],
+        [884, 28],
+        [912, 0],
+      ],
+    },
+    {
+      a: `tl`,
+      p: [
+        [627, 88],
+        [737, 88],
+      ],
+      end: `circle`,
+    },
+    {
+      a: `tl`,
+      p: [
+        [750, 82],
+        [785, 47],
+        [893, 47],
+        [940, 0],
+      ],
+    },
+    {
+      a: `tl`,
+      p: [
+        [108, 151],
+        [108, 118],
+        [116, 110],
+        [540, 110],
+        [552, 98],
+      ],
+    },
+    {
+      a: `tl`,
+      p: [
+        [60, 0],
+        [60, 40],
+        [76, 56],
+      ],
+    },
+    {
+      a: `tl`,
+      p: [
+        [90, 410],
+        [113, 433],
+        [113, 455],
+      ],
+      end: `circle`,
+    },
+    {
+      a: `tl`,
+      p: [
+        [100, 405],
+        [100, 395],
+      ],
+      start: `circle`,
+    },
+    {
+      a: `tl`,
+      p: [
+        [136, 300],
+        [136, 525],
+        [96, 565],
+        [96, 610],
+        [72, 634],
+      ],
+    },
+    {
+      a: `tl`,
+      p: [
+        [112, 382],
+        [124, 394],
+        [124, 402],
+      ],
+      start: `circle`,
+    },
+    {
+      a: `tl`,
+      p: [
+        [108, 492],
+        [108, 520],
+        [81, 547],
+        [81, 600],
+        [72, 609],
+      ],
+    },
+    {
+      a: `tl`,
+      p: [
+        [118, 585],
+        [118, 545],
+        [150, 513],
+        [150, 470],
+      ],
+      end: `circle`,
+    },
+    {
+      a: `bl`,
+      p: [
+        [0, 735],
+        [64, 671],
+        [64, 610],
+        [72, 602],
+      ],
+    },
+    {
+      a: `bl`,
+      p: [
+        [0, 780],
+        [30, 750],
+        [30, 700],
+        [45, 685],
+      ],
+    },
+    {
+      a: `bl`,
+      p: [
+        [0, 868],
+        [72, 796],
+      ],
+    },
+    {
+      a: `bl`,
+      p: [
+        [106, 735],
+        [143, 760],
+        [226, 760],
+        [266, 800],
+        [1424, 800],
+      ],
+    },
+    {
+      a: `bl`,
+      p: [
+        [1436, 800],
+        [1536, 800],
+        [1596, 860],
+        [1672, 860],
+      ],
+      start: `circle`,
+    },
+    {
+      a: `bl`,
+      p: [
+        [200, 760],
+        [218, 742],
+        [218, 720],
+      ],
+      end: `circle`,
+    },
+    {
+      a: `br`,
+      p: [
+        [1590, 924],
+        [1622, 892],
+        [1672, 892],
+      ],
+      start: `circle`,
+    },
+    {
+      a: `br`,
+      p: [
+        [1636, 880],
+        [1636, 870],
+        [1652, 854],
+        [1672, 854],
+      ],
+      start: `circle`,
+    },
+    {
+      a: `br`,
+      p: [
+        [1592, 830],
+        [1556, 830],
+        [1536, 850],
+        [1536, 941],
+      ],
+    },
+    {
+      a: `br`,
+      p: [
+        [1500, 941],
+        [1500, 912],
+        [1520, 892],
+      ],
+    },
+    {
+      a: `br`,
+      p: [
+        [1652, 941],
+        [1652, 924],
+        [1640, 912],
+      ],
+      end: `circle`,
+    },
+    {
+      a: `tr`,
+      p: [
+        [1068, 81],
+        [1086, 81],
+        [1138, 19],
+        [1150, 19],
+      ],
+      start: `circle`,
+    },
+    {
+      a: `tr`,
+      p: [
+        [1620, 74],
+        [1640, 94],
+        [1640, 104],
+        [1660, 124],
+        [1660, 262],
+      ],
+      end: `circle`,
+    },
+    {
+      a: `tr`,
+      p: [
+        [1650, 64],
+        [1672, 86],
+      ],
+    },
+    {
+      a: `tr`,
+      p: [
+        [1590, 104],
+        [1600, 114],
+        [1600, 160],
+      ],
+    },
+    {
+      a: `tr`,
+      p: [
+        [1636, 84],
+        [1636, 92],
+        [1652, 108],
+        [1652, 112],
+      ],
+    },
+    {
+      a: `tr`,
+      p: [
+        [1595, 104],
+        [1595, 108],
+        [1580, 108],
+        [1582, 104],
+      ],
+    },
+    {
+      a: `tr`,
+      p: [
+        [1672, 300],
+        [1666, 306],
+        [1666, 470],
+      ],
+    },
+    {
+      a: `br`,
+      p: [
+        [1652, 520],
+        [1652, 790],
+        [1630, 812],
+      ],
+    },
+  ],
+  p = [
+    {
+      a: `tl`,
+      s: [
+        [925, 37, 11, 0.95],
+        [1056, 22, 9, 0.45],
+        [1068, 28, 7, 0.35],
+        [1076, 22, 14, 0.75],
+        [1063, 36, 13, 0.6],
+        [1083, 36, 8, 0.5],
+      ],
+    },
+    {
+      a: `tr`,
+      s: [
+        [1612, 22, 13, 0.6],
+        [1628, 20, 15, 0.8],
+        [1645, 22, 10, 0.5],
+        [1614, 36, 9, 0.45],
+        [1630, 37, 12, 0.7],
+        [1622, 49, 10, 0.55],
+        [1640, 52, 9, 0.75],
+        [1631, 64, 8, 0.85],
+      ],
+    },
+    {
+      a: `tl`,
+      s: [
+        [214, 350, 8, 0.45],
+        [100, 678, 11, 0.6],
+        [87, 694, 13, 0.55],
+        [104, 698, 8, 0.4],
+        [98, 712, 8, 0.45],
+      ],
+    },
+    {
+      a: `bl`,
+      s: [
+        [243, 760, 9, 0.5],
+        [36, 815, 11, 0.6],
+        [27, 830, 9, 0.5],
+        [44, 830, 8, 0.45],
+        [22, 844, 8, 0.4],
+        [16, 912, 9, 0.5],
+      ],
+    },
+    {
+      a: `br`,
+      s: [
+        [1625, 808, 12, 0.6],
+        [1640, 818, 13, 0.8],
+        [1626, 824, 10, 0.55],
+        [1652, 812, 9, 0.5],
+        [1645, 832, 9, 0.7],
+        [1510, 919, 8, 0.6],
+      ],
+    },
+  ],
+  m = `http://www.w3.org/2000/svg`;
+function h(e, t, n, r, i) {
+  return [e.includes(`r`) ? t + r : t, e.includes(`b`) ? n + i : n];
+}
+function ee(e, t, n) {
+  let r = t - u,
+    i = n - d;
+  e.setAttribute(`viewBox`, `0 0 ${t} ${n}`), e.replaceChildren();
+  let a = document.createElementNS(m, `g`),
+    o = document.createElementNS(m, `g`),
+    s = document.createElementNS(m, `g`);
+  for (let e of f) {
+    let t = e.p.map(([t, n]) => h(e.a, t, n, r, i));
+    if (t.length > 1 && (t[0][0] !== t[1][0] || t[0][1] !== t[1][1])) {
+      let e = document.createElementNS(m, `path`);
+      e.setAttribute(`d`, `M` + t.map((e) => e.join(` `)).join(` L`)), a.append(e);
+    }
+    for (let [n, r, i] of [
+      [`start`, t[0], t[1]],
+      [`end`, t[t.length - 1], t[t.length - 2]],
+    ]) {
+      if (e[n] !== `circle`) continue;
+      let t = r[0] - i[0],
+        a = r[1] - i[1],
+        s = Math.hypot(t, a) || 1,
+        c = document.createElementNS(m, `circle`);
+      c.setAttribute(`cx`, r[0] + (t / s) * 5.5),
+        c.setAttribute(`cy`, r[1] + (a / s) * 5.5),
+        c.setAttribute(`r`, 5.5),
+        o.append(c);
+    }
+  }
+  for (let e of p)
+    for (let [t, n, a, o] of e.s) {
+      let [c, l] = h(e.a, t, n, r, i),
+        u = document.createElementNS(m, `rect`);
+      u.setAttribute(`x`, c),
+        u.setAttribute(`y`, l),
+        u.setAttribute(`width`, a),
+        u.setAttribute(`height`, a),
+        u.setAttribute(`rx`, 1),
+        u.setAttribute(`opacity`, o),
+        u.setAttribute(`class`, `pix`),
+        s.append(u);
+    }
+  e.append(a, o, s);
+}
+var g = [`JAN`, `FEB`, `MAR`, `APR`, `MAY`, `JUN`, `JUL`, `AUG`, `SEP`, `OCT`, `NOV`, `DEC`],
+  _ = (e) => String(e).padStart(2, `0`);
+function te(e, t) {
+  let n = () => {
+    let n = new Date();
+    (e.textContent = `${g[n.getMonth()]} ${_(n.getDate())}, ${n.getFullYear()}`),
+      (t.textContent = `${_(n.getHours())}:${_(n.getMinutes())}:${_(n.getSeconds())}`);
+  };
+  n(), setInterval(n, 1e3);
+}
+var ne = {
+  usb: [
+    `0 0 32 52`,
+    `<path d="M10.5 3.5h11v15h-11z"/><path d="M13.6 7.5v3.4M18.4 7.5v3.4"/><path d="M7 18.5h18v10.8c0 2.6-2.1 4.7-4.7 4.7h-8.6C9.1 34 7 31.9 7 29.3z"/><path d="M14 34v5h4v-5M16 39v10"/>`,
+  ],
+  chip: [
+    `0 0 40 40`,
+    `<rect x="9.5" y="9.5" width="21" height="21" rx="2"/><rect x="14" y="14" width="12" height="12" rx="1" class="fill"/><path d="M14.5 4v5.5M20 4v5.5M25.5 4v5.5M14.5 30.5V36M20 30.5V36M25.5 30.5V36M4 14.5h5.5M4 20h5.5M4 25.5h5.5M30.5 14.5H36M30.5 20H36M30.5 25.5H36"/>`,
+  ],
+  pins: [
+    `0 0 40 40`,
+    `<path d="M5 34.5h30M7.5 34.5v-6h25v6"/><path d="M12 28.5V8.5c0-1.4 1-2.5 2.2-2.5s2.3 1.1 2.3 2.5v20M23.5 28.5v-20c0-1.4 1-2.5 2.3-2.5s2.2 1.1 2.2 2.5v20"/>`,
+  ],
+  bolt: [`0 0 40 46`, `<path d="M24.5 3 9.5 25.5h10L15.5 43 31 19.5H21z"/>`],
+  plug: [
+    `0 0 40 46`,
+    `<path d="M14 4v9M26 4v9"/><path d="M9 13h22v6.5c0 6.1-4.9 11-11 11s-11-4.9-11-11z"/><path d="M20 30.5v6c0 2.5-2 4.5-4.5 4.5"/>`,
+  ],
+  wave: [`0 0 44 40`, `<path d="M2.5 23h6l4.5-11 6.5 19 6-25 5.5 21 3.5-7.5 2.5 3.5h5"/>`],
+  led: [
+    `0 0 40 40`,
+    `<path d="M13.5 23v-8.5a6.5 6.5 0 0 1 13 0V23"/><path d="M10.5 23h19"/><path d="M16.5 23v13M23.5 23v9"/><path d="M20 2.5v3.2M7.5 7.5l2.3 2.3M32.5 7.5l-2.3 2.3"/>`,
+  ],
+  resistor: [
+    `0 0 44 40`,
+    `<path d="M2 20h8M34 20h8"/><rect x="10" y="13.5" width="24" height="13" rx="5.5"/><path d="M16.5 13.8v12.4M21.5 13.8v12.4M28 13.8v12.4"/>`,
+  ],
+  pin: [
+    `0 0 40 40`,
+    `<rect x="12.5" y="21" width="15" height="13" rx="1.5"/><path d="M20 21V4"/><path d="M16.5 27.5h7"/>`,
+  ],
+  ground: [`0 0 40 40`, `<path d="M20 4v15M7 19h26M12 25.5h16M16.5 32h7"/>`],
+  bulb: [
+    `0 0 40 40`,
+    `<path d="M20 9.5a8 8 0 0 0-4.8 14.4c.8.6 1.3 1.6 1.3 2.6v1h7v-1c0-1 .5-2 1.3-2.6A8 8 0 0 0 20 9.5zM16.8 31h6.4M17.8 34h4.4"/><path d="M20 2.5v3M8.8 7l2 2M31.2 7l-2 2M4.5 17.5h3M32.5 17.5h3"/>`,
+  ],
+  sensor: [
+    `0 0 44 40`,
+    `<rect x="2.5" y="9" width="39" height="22" rx="3"/><circle cx="13" cy="20" r="6.5"/><circle cx="31" cy="20" r="6.5"/><circle cx="13" cy="20" r="2.2" class="fill"/><circle cx="31" cy="20" r="2.2" class="fill"/>`,
+  ],
+  motor: [
+    `0 0 44 40`,
+    `<rect x="4" y="10" width="23" height="20" rx="4"/><path d="M27 14h4.5v12H27M31.5 20H41"/><path d="M10 10V6.5M20 10V6.5"/><path d="M9 20h12"/>`,
+  ],
+  transistor: [
+    `0 0 40 40`,
+    `<rect x="10" y="3.5" width="20" height="9" rx="1"/><circle cx="20" cy="8" r="2.2"/><rect x="10" y="12.5" width="20" height="13" rx="1"/><path d="M14 25.5V37M20 25.5V37M26 25.5V37"/>`,
+  ],
+  car: [
+    `0 0 44 40`,
+    `<path d="M3.5 27v-5.5l5-1.2 5.5-7.3h13.5l6.2 7.3 5.8 1.2V27z"/><circle cx="12.5" cy="28" r="4" class="fill"/><circle cx="31.5" cy="28" r="4" class="fill"/><path d="M15.5 20.3h17"/>`,
+  ],
+  logic: [`0 0 40 40`, `<path d="M20 4.5 31.5 16 20 27.5 8.5 16z"/><path d="M20 27.5V36M8.5 16H3.5M31.5 16h5"/>`],
+  lights: [
+    `0 0 40 40`,
+    `<rect x="12.5" y="3" width="15" height="34" rx="4"/><circle cx="20" cy="11" r="3"/><circle cx="20" cy="20" r="3"/><circle cx="20" cy="29" r="3" class="fill"/>`,
+  ],
+  pwm: [`0 0 44 40`, `<path d="M2.5 29h5V11h6v18h4V11h10v18h4V11h10"/>`],
+  console: [
+    `0 0 40 40`,
+    `<rect x="4.5" y="7.5" width="31" height="25" rx="3"/><path d="m11 15.5 5 4.5-5 4.5M19.5 25.5h9"/>`,
+  ],
+  ruler: [
+    `0 0 44 40`,
+    `<rect x="3" y="13" width="38" height="14" rx="2"/><path d="M9 13v5M15 13v7M21 13v5M27 13v7M33 13v5"/>`,
+  ],
+  clock: [`0 0 40 40`, `<circle cx="20" cy="21" r="14"/><path d="M20 12.5V21l6 4M16 3.5h8"/>`],
+  gear: [
+    `0 0 32 32`,
+    `<path d="M18 4.5h-4l-.6 3a9 9 0 0 0-2.4 1.4l-2.9-1-2 3.4 2.3 2a9 9 0 0 0 0 2.8l-2.3 2 2 3.4 2.9-1a9 9 0 0 0 2.4 1.4l.6 3h4l.6-3a9 9 0 0 0 2.4-1.4l2.9 1 2-3.4-2.3-2a9 9 0 0 0 0-2.8l2.3-2-2-3.4-2.9 1A9 9 0 0 0 18.6 7.5z"/><circle cx="16" cy="15" r="3.8"/>`,
+  ],
+  button: [
+    `0 0 40 40`,
+    `<rect x="6" y="15" width="28" height="15" rx="2.5"/><path d="M13 15v-3.5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2V15"/><path d="M11 30v5M29 30v5"/><path d="M20 2.5v3.5"/>`,
+  ],
+  knob: [
+    `0 0 40 40`,
+    `<circle cx="20" cy="22" r="11"/><path d="M20 22l-5.5-7"/><path d="M6.5 32.5a16 16 0 0 1 0-21M33.5 11.5a16 16 0 0 1 0 21"/>`,
+  ],
+  speaker: [
+    `0 0 40 40`,
+    `<path d="M6 15.5h6.5L21 8v24l-8.5-7.5H6z"/><path d="M26.5 14.5a7.5 7.5 0 0 1 0 11M30.5 10a13.5 13.5 0 0 1 0 20"/>`,
+  ],
+  servo: [
+    `0 0 44 40`,
+    `<rect x="4.5" y="15" width="26" height="18" rx="2"/><path d="M2 21h35"/><circle cx="23" cy="15" r="4"/><path d="M23 15 37 5.5"/><circle cx="37" cy="5.5" r="1.8" class="fill"/>`,
+  ],
+  rgb: [`0 0 40 40`, `<circle cx="15" cy="15" r="9"/><circle cx="25" cy="15" r="9"/><circle cx="20" cy="24" r="9"/>`],
+  lamp: [
+    `0 0 40 40`,
+    `<path d="M11 36.5h14M18 36.5V24l-6-9 9-7"/><path d="m19 6.5 9.5-3.5 4 10-11 2.5z"/><path d="M27 16.5 29.5 22M33 14.5l3 4"/>`,
+  ],
+  sun: [
+    `0 0 40 40`,
+    `<circle cx="20" cy="20" r="7"/><path d="M20 3.5v5M20 31.5v5M3.5 20h5M31.5 20h5M8.3 8.3l3.5 3.5M28.2 28.2l3.5 3.5M8.3 31.7l3.5-3.5M28.2 11.8l3.5-3.5"/>`,
+  ],
+  check: [`0 0 24 24`, `<path d="m5 12.5 4.5 4.5L19 7.5"/>`],
+  copy: [
+    `0 0 24 24`,
+    `<rect x="8" y="8" width="11.5" height="12.5" rx="1.6"/><path d="M15.5 5.2V4.8c0-.9-.7-1.6-1.6-1.6H6.1c-.9 0-1.6.7-1.6 1.6v9.6c0 .9.7 1.6 1.6 1.6h.4"/>`,
+  ],
+  play: [`0 0 24 24`, `<path d="M7.5 4.8v14.4L19 12z" class="fill"/>`],
+  stop: [`0 0 24 24`, `<rect x="6.5" y="6.5" width="11" height="11" rx="1.5" class="fill"/>`],
+  rotL: [`0 0 24 24`, `<path d="M4.5 10.5A8 8 0 1 1 6 17"/><path d="M4 5v5.8h5.8"/>`],
+  rotR: [`0 0 24 24`, `<path d="M19.5 10.5A8 8 0 1 0 18 17"/><path d="M20 5v5.8h-5.8"/>`],
+  plus: [`0 0 24 24`, `<path d="M12 5v14M5 12h14"/>`],
+  minus: [`0 0 24 24`, `<path d="M5 12h14"/>`],
+  home: [`0 0 24 24`, `<path d="M4 11.5 12 4.5l8 7"/><path d="M6.5 10v9.5h11V10"/>`],
+  expand: [
+    `0 0 24 24`,
+    `<path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><circle cx="12" cy="12" r="1.3" class="fill"/>`,
+  ],
+  collapse: [`0 0 24 24`, `<path d="M8 3v5H3M21 8h-5V3M16 21v-5h5M3 16h5v5"/>`],
+  close: [`0 0 24 24`, `<path d="m6 6 12 12M18 6 6 18"/>`],
+  focus: [`0 0 24 24`, `<circle cx="12" cy="12" r="3.5"/><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4"/>`],
+};
+function v(e, t = ``) {
+  let [n, r] = ne[e] ?? ne.chip;
+  return `<svg viewBox="${n}" class="${t}" aria-hidden="true">${r}</svg>`;
+}
+var re = `http://www.w3.org/2000/svg`,
+  ie = 7;
+function y(e, t = {}) {
+  let n = document.createElementNS(re, e);
+  for (let [e, r] of Object.entries(t)) n.setAttribute(e, r);
+  return n;
+}
+function ae(e, t, n) {
+  let r = e.ring ? ie : 0,
+    i = e.at * n;
+  switch (e.side) {
+    case `top`:
+      return [t.x + i, t.y - r];
+    case `left`:
+      return [t.x - +!e.ring, t.y + i];
+    case `right`:
+      return [t.x + t.w + +!e.ring, t.y + i];
+    default:
+      return [t.x + i, t.y + t.h + r];
+  }
+}
+function oe(e, t, n, r) {
+  let i = (e.leg ?? 30) * r;
+  if (e.approach === `above`) return [n[0], n[1] - i];
+  switch (e.side) {
+    case `top`:
+      return [t[0], t[1] - i];
+    case `left`:
+      return [t[0] - i, t[1]];
+    case `right`:
+      return [t[0] + i, t[1]];
+    default:
+      return [t[0], t[1] + i];
+  }
+}
+var se = class {
+    constructor({ rig: e, svg: t, tags: n, onFocus: r }) {
+      (this.rig = e),
+        (this.svg = t),
+        (this.tags = n),
+        (this.onFocus = r),
+        (this.origin = { x: 0, y: 0 }),
+        (this.scale = 1),
+        (this.sets = []),
+        (this.current = null),
+        (this.free = !1),
+        (this.hidden = !1),
+        (this.readout = document.createElement(`div`)),
+        (this.readout.className = `readout`),
+        n.append(this.readout);
+    }
+    show(e, { delay: t = 0, hold: n = !1 } = {}) {
+      for (let e of this.sets) this.retire(e);
+      let r = { lesson: e, items: [], aligned: !1, root: y(`g`, { class: `leader-set is-hidden` }) };
+      this.svg.append(r.root);
+      for (let t of e.callouts) {
+        let e = document.createElement(`article`);
+        (e.className = `callout is-hidden`),
+          (e.tabIndex = 0),
+          e.style.setProperty(`--x`, `${t.x}px`),
+          e.style.setProperty(`--y`, `${t.y}px`),
+          e.style.setProperty(`--w`, `${t.w}px`);
+        let n = [`callout-icon`, t.tall ? `tall` : ``, t.wide ? `wide` : ``].join(` `);
+        (e.innerHTML = `${v(t.icon, n)}<div><h3>${t.title}</h3><p>${t.body}</p></div>`), this.rig.append(e);
+        let i = y(`g`, { class: `leader` }),
+          a = y(`path`);
+        i.append(a);
+        let o = null;
+        t.ring && ((o = y(`circle`, { r: 4.6, class: `dot-end` })), i.append(o));
+        let s = (e) => {
+            let t = y(`g`, { class: `hotspot` });
+            return (
+              t.append(
+                y(`circle`, { r: e + 6, class: `dot-hit` }),
+                y(`circle`, { r: e, class: `dot-halo` }),
+                y(`circle`, { r: e - 1.2, class: `dot-anchor` }),
+              ),
+              i.append(t),
+              t
+            );
+          },
+          c = t.via ? s(7.2) : null,
+          l = s(7.6);
+        t.anchor.startsWith(`part:`) && l.classList.add(`is-passive`), r.root.append(i);
+        let u = document.createElement(`button`);
+        (u.className = `tag is-hidden`), (u.innerHTML = `<span>${t.title}</span>`), this.tags.append(u);
+        let d = { c: t, card: e, g: i, path: a, ring: o, via: c, dot: l, tag: u, size: null },
+          f = () => this.onFocus?.(t);
+        e.addEventListener(`click`, f),
+          e.addEventListener(`keydown`, (e) => {
+            (e.key === `Enter` || e.key === ` `) && (e.preventDefault(), f());
+          }),
+          l.addEventListener(`click`, f),
+          u.addEventListener(`click`, f);
+        for (let t of [e, l, u])
+          t.addEventListener(`pointerenter`, () => i.classList.add(`is-hot`)),
+            t.addEventListener(`pointerleave`, () => i.classList.remove(`is-hot`));
+        r.items.push(d);
+      }
+      this.sets.push(r), (this.current = r);
+      let i = () => {
+        this.current === r &&
+          (r.root.classList.remove(`is-hidden`),
+          r.items.forEach((e, t) => {
+            (e.card.style.transitionDelay = `${t * 60}ms`),
+              e.card.classList.remove(`is-hidden`),
+              e.tag.classList.remove(`is-hidden`);
+          }));
+      };
+      (this.held = null), n ? (this.held = i) : t ? setTimeout(i, t) : requestAnimationFrame(i);
+    }
+    release() {
+      let e = this.held;
+      (this.held = null), e?.();
+    }
+    retire(e) {
+      e.root.classList.add(`is-hidden`);
+      for (let t of e.items)
+        (t.card.style.transitionDelay = `0ms`), t.card.classList.add(`is-leaving`), t.tag.classList.add(`is-hidden`);
+      setTimeout(() => {
+        e.root.remove();
+        for (let t of e.items) t.card.remove(), t.tag.remove();
+        this.sets = this.sets.filter((t) => t !== e);
+      }, 420);
+    }
+    setFree(e) {
+      e !== this.free &&
+        ((this.free = e),
+        this.rig.classList.toggle(`is-free`, e),
+        this.svg.classList.toggle(`is-free`, e),
+        this.tags.classList.toggle(`is-free`, e));
+    }
+    setVisible(e) {
+      this.hidden = !e;
+      for (let t of [this.rig, this.svg, this.tags]) t.classList.toggle(`is-off`, !e);
+    }
+    layoutTags(e, t, n) {
+      let r = [],
+        i = e.map(({ a: e }) => e),
+        a = (e, a) =>
+          e.x >= 0 &&
+          e.y >= 0 &&
+          e.x + e.w <= t &&
+          e.y + e.h <= n &&
+          r.every(
+            (t) => e.x >= t.x + t.w + 4 || t.x >= e.x + e.w + 4 || e.y >= t.y + t.h + 3 || t.y >= e.y + e.h + 3,
+          ) &&
+          i.every((t) => t === a || t[0] < e.x - 9 || t[0] > e.x + e.w + 9 || t[1] < e.y - 9 || t[1] > e.y + e.h + 9);
+      e.sort((e, t) => e.a[1] - t.a[1]);
+      for (let { it: t, a: n } of e) {
+        t.tagSize?.w || (t.tagSize = { w: t.tag.offsetWidth, h: t.tag.offsetHeight });
+        let { w: e, h: i } = t.tagSize,
+          o = [
+            [n[0] + 13, n[1] - 13],
+            [n[0] - 13 - e, n[1] - 13],
+            [n[0] + 8, n[1] - i - 11],
+            [n[0] + 8, n[1] + 11],
+            [n[0] - 8 - e, n[1] - i - 11],
+            [n[0] - 8 - e, n[1] + 11],
+          ],
+          s = (t) => ({ x: o[t][0], y: o[t][1], w: e, h: i }),
+          c = 0;
+        a(s(0), n) ||
+          (c =
+            t.tagSpot && a(s(t.tagSpot), n)
+              ? t.tagSpot
+              : Math.max(
+                  0,
+                  o.findIndex((e, t) => a(s(t), n)),
+                )),
+          (t.tagSpot = c),
+          r.push(s(c)),
+          (t.tag.style.transform = `translate(${o[c][0]}px, ${o[c][1]}px)`);
+      }
+    }
+    invalidate() {
+      for (let e of this.sets) {
+        e.aligned = !1;
+        for (let t of e.items) t.size = null;
+      }
+    }
+    update(e) {
+      let { w: t, h: n } = e.size,
+        r = [];
+      for (let i of this.sets) {
+        if (!i.aligned && i === this.current && e.isHome()) {
+          for (let t of i.items) {
+            if (!t.c.via) continue;
+            let n = e.anchor(t.c.via);
+            if (!n) continue;
+            let [r] = e.project(n);
+            t.card.style.setProperty(`--x`, `${(r - this.origin.x) / this.scale - t.c.at}px`), (t.size = null);
+          }
+          i.aligned = !0;
+        }
+        for (let a of i.items) {
+          let o = e.anchor(a.c.anchor);
+          if (!o) {
+            (a.g.style.display = `none`), (a.tag.style.display = `none`);
+            continue;
+          }
+          a.g.style.display = ``;
+          let s = e.project(o);
+          a.size ??= { w: a.card.offsetWidth, h: a.card.offsetHeight, x: a.card.offsetLeft, y: a.card.offsetTop };
+          let c = this.scale,
+            l = { x: this.origin.x + a.size.x * c, y: this.origin.y + a.size.y * c, w: a.size.w * c, h: a.size.h * c },
+            u = ae(a.c, l, c),
+            d;
+          if (a.c.via) {
+            let t = e.anchor(a.c.via),
+              n = t ? e.project(t) : u;
+            (d = `M${u[0]} ${u[1]} L${n[0]} ${n[1]} L${s[0]} ${s[1]}`),
+              a.via?.setAttribute(`transform`, `translate(${n[0]} ${n[1]})`);
+          } else {
+            let e = oe(a.c, u, s, c);
+            d = `M${u[0]} ${u[1]} L${e[0]} ${e[1]} L${s[0]} ${s[1]}`;
+          }
+          a.path.setAttribute(`d`, d),
+            a.ring && (a.ring.setAttribute(`cx`, u[0]), a.ring.setAttribute(`cy`, u[1])),
+            a.dot.setAttribute(`transform`, `translate(${s[0]} ${s[1]})`);
+          let f = s[0] > 0 && s[1] > 0 && s[0] < t && s[1] < n;
+          (a.dot.style.display = f ? `` : `none`),
+            (a.tag.style.display = f ? `` : `none`),
+            f && i === this.current
+              ? r.push({ it: a, a: s })
+              : (a.tag.style.transform = `translate(${s[0] + 13}px, ${s[1] - 13}px)`);
+        }
+      }
+      this.layoutTags(r, t, n);
+      let i = e.readoutState;
+      if (i) {
+        let [t, n] = e.projectPoint(i.position);
+        (this.readout.textContent = i.text),
+          (this.readout.style.transform = `translate(${t}px, ${n}px) translate(-50%, -50%)`),
+          this.readout.classList.add(`is-on`);
+      } else this.readout.classList.remove(`is-on`);
+    }
+  },
+  b = [`overview`, `pinout`, `example`, `specs`];
+function ce(e, t) {
+  switch (t) {
+    case `pinout`:
+      return `
+        <h2>Pinout</h2>
+        <p class="sub">How ${e.id === `board` ? `the Uno’s headers are grouped` : `this circuit is wired`}.</p>
+        <table class="pin-table">
+          <thead><tr><th>Pin</th><th>Connects to</th><th>What it does</th></tr></thead>
+          <tbody>${e.pinout.map(([e, t, n, r]) => `<tr><td><span class="wire-dot" style="--c:${r}"></span><code>${e}</code></td><td>${t}</td><td>${n}</td></tr>`).join(``)}</tbody>
+        </table>`;
+    case `example`:
+      return `
+        <h2>How the code works</h2>
+        <ol class="steps">${e.example.map((e) => `<li>${e}</li>`).join(``)}</ol>`;
+    case `specs`:
+      return `
+        <h2>Specifications</h2>
+        <dl class="spec-grid">${e.specs.map(([e, t]) => `<div><dt>${e}</dt><dd>${t}</dd></div>`).join(``)}</dl>`;
+    default:
+      return `
+        <h2>${e.heading}</h2>
+        <p class="lede">${e.lede}</p>
+        <ul class="features">${e.features.map(([e, t]) => `<li><span class="feature-icon">${v(e)}</span><span>${t}</span></li>`).join(``)}</ul>`;
+  }
+}
+var le = class {
+    constructor(e, { onExpand: t } = {}) {
+      (this.root = e),
+        (this.onExpand = t),
+        (this.tabs = [...e.querySelectorAll(`[role="tab"]`)]),
+        (this.content = e.querySelector(`.info-content`)),
+        (this.expandBtn = e.querySelector(`.expand`)),
+        (this.tab = `overview`),
+        (this.lesson = null),
+        this.tabs.forEach((e, t) => {
+          (e.dataset.tab = b[t]),
+            e.addEventListener(`click`, () => this.setTab(b[t])),
+            e.addEventListener(`keydown`, (e) => {
+              if (e.key !== `ArrowRight` && e.key !== `ArrowLeft`) return;
+              let n = (t + (e.key === `ArrowRight` ? 1 : b.length - 1)) % b.length;
+              this.setTab(b[n]), this.tabs[n].focus();
+            });
+        }),
+        this.expandBtn.addEventListener(`click`, () => this.toggleExpanded());
+    }
+    setLesson(e) {
+      (this.lesson = e), this.paint(!0);
+    }
+    setTab(e) {
+      e !== this.tab && ((this.tab = e), this.paint(!1));
+    }
+    paint(e) {
+      this.tabs.forEach((e) => {
+        let t = e.dataset.tab === this.tab;
+        e.classList.toggle(`is-active`, t), e.setAttribute(`aria-selected`, String(t)), (e.tabIndex = t ? 0 : -1);
+      });
+      let t = this.content;
+      t.classList.remove(`is-in`),
+        t.classList.add(`is-out`),
+        clearTimeout(this.timer),
+        (this.timer = setTimeout(
+          () => {
+            (t.innerHTML = ce(this.lesson, this.tab)),
+              (t.scrollTop = 0),
+              t.classList.remove(`is-out`),
+              t.offsetWidth,
+              t.classList.add(`is-in`);
+          },
+          e ? 220 : 120,
+        ));
+    }
+    get expanded() {
+      return this.root.classList.contains(`is-expanded`);
+    }
+    toggleExpanded(e) {
+      let t = e ?? !this.expanded;
+      if (t === this.expanded) return;
+      this.root.classList.toggle(`is-expanded`, t),
+        (this.expandBtn.innerHTML = v(t ? `collapse` : `expand`)),
+        this.expandBtn.setAttribute(`aria-label`, t ? `Collapse panel` : `Expand panel`);
+      let n = document.querySelector(`.code-card`);
+      n?.classList.toggle(`is-covered`, t), n && (n.inert = t), this.onExpand?.(t);
+    }
+    setCovered(e) {
+      this.root.classList.toggle(`is-covered`, e), (this.root.inert = e);
+    }
+  },
+  ue = new Set([
+    `void`,
+    `int`,
+    `long`,
+    `const`,
+    `for`,
+    `if`,
+    `else`,
+    `while`,
+    `return`,
+    `unsigned`,
+    `bool`,
+    `float`,
+    `char`,
+    `byte`,
+    `sizeof`,
+    `Servo`,
+  ]),
+  de = new Set([`HIGH`, `LOW`, `INPUT`, `OUTPUT`, `INPUT_PULLUP`, `LED_BUILTIN`, `A0`, `true`, `false`]),
+  fe = ``,
+  x = /(\/\/.*$)|("(?:[^"\\]|\\.)*")|\u0001(\w+)\u0002|(\b\d+\b)|([A-Za-z_]\w*)(\s*\()?|([^\w"/\u0001]+|\/)/gm,
+  S = (e) => e.replace(/&/g, `&amp;`).replace(/</g, `&lt;`).replace(/>/g, `&gt;`);
+function pe(e, t) {
+  let n = /^(\s*)(#\w+)(.*)$/.exec(e);
+  if (n) return `${n[1]}<span class="kw">${n[2]}</span><span class="str">${S(n[3])}</span>`;
+  let r = ``;
+  x.lastIndex = 0;
+  let i;
+  for (; (i = x.exec(e)); ) {
+    let [, e, n, a, o, s, c, l] = i;
+    if (e) r += `<span class="cm">${S(e)}</span>`;
+    else if (n) r += `<span class="str">${S(n)}</span>`;
+    else if (a)
+      r += `<button type="button" class="param" data-param="${a}" title="Click to change">${S(String(t[a] ?? ``))}</button>`;
+    else if (o) r += `<span class="num">${o}</span>`;
+    else if (s) {
+      let e = `id`;
+      ue.has(s) || de.has(s) ? (e = `kw`) : c && s !== `setup` && s !== `loop` && (e = `fn`),
+        (r += `<span class="${e}">${s}</span>${c ? S(c) : ``}`);
+    } else l && (r += S(l));
+    i[0] === `` && x.lastIndex++;
+  }
+  return r;
+}
+function me(e, t = {}) {
+  return e
+    .replace(/\{\{(\w+)\}\}/g, `${fe}$1\u0002`)
+    .split(
+      `
+`,
+    )
+    .map((e, n) => `<span class="line"><span class="ln">${n + 1}</span>${pe(e, t) || ` `}</span>`)
+    .join(``);
+}
+var C = 92,
+  he = class {
+    constructor(e, { onRun: t, onStop: n, onParam: r, onExpand: i }) {
+      (this.root = e),
+        (this.code = e.querySelector(`code`)),
+        (this.pre = e.querySelector(`pre`)),
+        (this.copyBtn = e.querySelector(`.btn-copy`)),
+        (this.expandBtn = e.querySelector(`.btn-expand`)),
+        (this.runBtn = e.querySelector(`.btn-run`)),
+        (this.consoleEl = e.querySelector(`.console`)),
+        (this.lines = e.querySelector(`.console-lines`)),
+        (this.status = e.querySelector(`.console-status`)),
+        (this.state = `idle`),
+        (this.onRun = t),
+        (this.onStop = n),
+        (this.onExpand = i),
+        this.copyBtn.addEventListener(`click`, () => this.copy()),
+        this.expandBtn.addEventListener(`click`, () => this.toggleExpanded()),
+        this.runBtn.addEventListener(`click`, () => this.toggle()),
+        e.querySelector(`.console-close`).addEventListener(`click`, () => this.onStop()),
+        (this.wrap = e.querySelector(`.code-wrap`)),
+        (this.grip = e.querySelector(`.console-grip`)),
+        this.resizable(),
+        this.code.addEventListener(`click`, (e) => {
+          let t = e.target.closest(`.param`);
+          t && r?.(t.dataset.param);
+        });
+    }
+    setLesson(e, t) {
+      (this.lesson = e),
+        (this.values = t),
+        (this.marked = []),
+        this.pre.classList.add(`is-out`),
+        clearTimeout(this.swapTimer),
+        (this.swapTimer = setTimeout(() => {
+          this.paint(), (this.pre.scrollTop = 0), this.pre.classList.remove(`is-out`);
+        }, 180)),
+        this.setState(`idle`);
+    }
+    paint() {
+      let e = l(this.lesson, this.values);
+      if (((this.code.innerHTML = me(e, this.values)), this.marked?.length))
+        for (let e of this.code.querySelectorAll(`.param`))
+          e.classList.toggle(`is-marked`, this.marked.includes(e.dataset.param));
+      return this.markTrace(!1), e;
+    }
+    trace(e) {
+      (this.traced = e), this.markTrace(!0);
+    }
+    markTrace(e) {
+      let t = [...this.code.querySelectorAll(`.line`)];
+      for (let e of t) e.classList.remove(`is-running`);
+      if (!this.traced) return;
+      let { text: n, nth: r } = this.traced,
+        i = t.filter((e) => e.textContent.replace(/^\d+/, ``).includes(n)),
+        a = i[Math.min(r, i.length - 1)];
+      a && (a.classList.add(`is-running`), e && this.reveal(a, this.consoleCover()));
+    }
+    resizable() {
+      let e = `console-height`,
+        t = null;
+      try {
+        t = Number(localStorage.getItem(e)) || null;
+      } catch {}
+      (this.consoleH = t ?? C), this.setConsoleHeight(this.consoleH, !1);
+      let n = () => {
+          try {
+            localStorage.setItem(e, String(Math.round(this.consoleH)));
+          } catch {}
+        },
+        r = this.consoleEl.querySelector(`.console-head`),
+        i = null,
+        a = (e) => {
+          e.button !== 0 ||
+            e.target.closest(`button`) ||
+            document.documentElement.classList.contains(`compact`) ||
+            (e.preventDefault(),
+            (i = { y: e.clientY, h: this.consoleEl.offsetHeight, target: e.currentTarget, id: e.pointerId }),
+            i.target.setPointerCapture(e.pointerId),
+            this.root.classList.add(`is-sizing`));
+        },
+        o = (e) => {
+          i && e.pointerId === i.id && this.setConsoleHeight(i.h + (i.y - e.clientY));
+        },
+        s = (e) => {
+          i && e.pointerId === i.id && ((i = null), this.root.classList.remove(`is-sizing`), n());
+        };
+      for (let e of [this.grip, r])
+        e.addEventListener(`pointerdown`, a),
+          e.addEventListener(`pointermove`, o),
+          e.addEventListener(`pointerup`, s),
+          e.addEventListener(`pointercancel`, s);
+      this.grip.addEventListener(`dblclick`, () => {
+        this.setConsoleHeight(C), n();
+      }),
+        this.grip.addEventListener(`keydown`, (e) => {
+          let t = { ArrowUp: 16, ArrowDown: -16, PageUp: 64, PageDown: -64 }[e.key];
+          t && (e.preventDefault(), e.stopPropagation(), this.setConsoleHeight(this.consoleEl.offsetHeight + t), n());
+        }),
+        new ResizeObserver(() => this.setConsoleHeight(this.consoleH, !1)).observe(this.wrap);
+    }
+    setConsoleHeight(e, t = !0) {
+      let n = this.wrap.clientHeight - 48;
+      t && (this.consoleH = Math.max(C, Math.min(e, n)));
+      let r = document.documentElement.classList.contains(`compact`)
+        ? C
+        : Math.round(Math.max(Math.min(C, n), Math.min(this.consoleH, n)));
+      this.root.style.setProperty(`--console-h`, `${r}px`),
+        this.grip.setAttribute(`aria-valuemin`, String(C)),
+        this.grip.setAttribute(`aria-valuemax`, String(Math.max(C, Math.round(n)))),
+        this.grip.setAttribute(`aria-valuenow`, String(r)),
+        t && this.traced && this.markTrace(!0);
+    }
+    consoleCover() {
+      return this.consoleEl.classList.contains(`is-open`)
+        ? Math.max(0, this.pre.offsetTop + this.pre.offsetHeight - this.consoleEl.offsetTop)
+        : 0;
+    }
+    update(e, t) {
+      if (!this.lesson || this.pre.classList.contains(`is-out`)) return;
+      this.values = e;
+      let n = [...this.code.querySelectorAll(`.line`)].map((e) => e.textContent.replace(/^\d+/, ``));
+      this.paint();
+      let r = [...this.code.querySelectorAll(`.line`)],
+        i = new Set(n),
+        a = null;
+      for (let e of r) i.has(e.textContent.replace(/^\d+/, ``)) || (e.classList.add(`is-new`), (a ??= e));
+      let o = [...this.code.querySelectorAll(`.param`)].filter((e) => [t].flat().includes(e.dataset.param));
+      for (let e of o) e.classList.add(`is-flash`);
+      this.reveal(o[0] ?? a);
+    }
+    mark(e) {
+      for (let t of this.code.querySelectorAll(`.param`)) t.classList.toggle(`is-marked`, e.includes(t.dataset.param));
+      this.marked = e;
+      let t = e.find((e) => this.code.querySelector(`.param[data-param="${e}"]`));
+      t && this.reveal(this.code.querySelector(`.param[data-param="${t}"]`));
+    }
+    reveal(e, t = 0) {
+      if (!e) return;
+      let n = e.closest(`.line`) ?? e,
+        r = n.offsetTop,
+        { scrollTop: i } = this.pre,
+        a = this.pre.clientHeight - t;
+      r < i + 8
+        ? this.pre.scrollTo({ top: Math.max(0, r - 30), behavior: `smooth` })
+        : r + n.offsetHeight > i + a - 8 && this.pre.scrollTo({ top: r + n.offsetHeight - a + 30, behavior: `smooth` });
+    }
+    toggle() {
+      this.state === `idle` ? this.onRun() : this.onStop();
+    }
+    get expanded() {
+      return this.root.classList.contains(`is-expanded`);
+    }
+    toggleExpanded(e) {
+      let t = e ?? !this.expanded;
+      t !== this.expanded &&
+        (this.root.classList.toggle(`is-expanded`, t),
+        (this.expandBtn.innerHTML = v(t ? `collapse` : `expand`)),
+        this.expandBtn.setAttribute(`aria-label`, t ? `Collapse code` : `Expand code`),
+        (this.expandBtn.title = t ? `Collapse code` : `Expand code`),
+        this.expandBtn.setAttribute(`aria-expanded`, String(t)),
+        this.onExpand?.(t));
+    }
+    setState(e) {
+      (this.state = e), (this.root.dataset.state = e);
+      let t = e !== `idle`;
+      (this.runBtn.innerHTML = v(t ? `stop` : `play`)),
+        this.runBtn.setAttribute(`aria-label`, t ? `Stop sketch` : `Run sketch`),
+        this.runBtn.classList.toggle(`is-busy`, e === `uploading`),
+        this.consoleEl.classList.toggle(`is-open`, t),
+        (this.grip.tabIndex = t ? 0 : -1),
+        (this.status.textContent = e === `uploading` ? `Uploading` : e === `running` ? `Running` : `Stopped`),
+        e === `uploading` && (this.lines.innerHTML = ``);
+    }
+    log(e) {
+      let t = document.createElement(`div`);
+      for (t.textContent = e, this.lines.append(t); this.lines.children.length > 40; ) this.lines.firstChild.remove();
+      this.lines.scrollTop = this.lines.scrollHeight;
+    }
+    async copy() {
+      let e = this.lesson ? c(this.lesson, this.values ?? {}) : ``;
+      try {
+        await navigator.clipboard.writeText(e);
+      } catch {
+        let t = document.createElement(`textarea`);
+        (t.value = e), document.body.append(t), t.select(), document.execCommand(`copy`), t.remove();
+      }
+      (this.copyBtn.innerHTML = v(`check`)),
+        this.copyBtn.classList.add(`is-done`),
+        clearTimeout(this.copyTimer),
+        (this.copyTimer = setTimeout(() => {
+          (this.copyBtn.innerHTML = v(`copy`)), this.copyBtn.classList.remove(`is-done`);
+        }, 1600));
+    }
+  },
+  ge = {
+    board: 124,
+    led: 72,
+    button: 84,
+    pot: 78,
+    rgb: 72,
+    lamp: 84,
+    sensor: 96,
+    buzzer: 74,
+    motor: 104,
+    servo: 96,
+    gears: 92,
+  },
+  _e = {
+    board: 316,
+    blink: 249,
+    button: 268,
+    knob: 254,
+    rgb: 248,
+    light: 252,
+    sensor: 282,
+    sound: 262,
+    motor: 300,
+    servo: 280,
+    project: 286,
+  },
+  ve = (e) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${e}" /></svg>`,
+  ye = class {
+    constructor(e, t, { onSelect: n }) {
+      (this.list = e),
+        (this.section = e.closest(`.lessons`)),
+        (this.lessons = t),
+        (this.done = new Set(this.load())),
+        (e.innerHTML = t
+          .map(
+            (e, t) => `
+        <li class="lesson" role="button" tabindex="0" data-id="${e.id}" style="--w: ${_e[e.id] ?? 260}; --tw: ${ge[e.thumb] ?? 96}" aria-label="Lesson ${t + 1}: ${e.title}">
+          <img class="lesson-thumb" data-thumb="${e.thumb}" alt="" />
+          <span class="lesson-title">${e.cardTitle}</span>
+          <span class="lesson-done" aria-hidden="true">${v(`check`)}</span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5.5 6.5 6.5L9 18.5" /></svg>
+        </li>`,
+          )
+          .join(``)),
+        (this.items = [...e.children]);
+      for (let e of this.items) {
+        let t = () => {
+          this.dragged || n(e.dataset.id);
+        };
+        e.addEventListener(`click`, t),
+          e.addEventListener(`keydown`, (e) => {
+            (e.key === `Enter` || e.key === ` `) && (e.preventDefault(), t());
+          });
+      }
+      this.paintDone(), this.setupScroll();
+    }
+    setupScroll() {
+      let e = this.list,
+        t = this.section,
+        n = document.createElement(`button`);
+      (n.className = `lesson-step prev`),
+        n.setAttribute(`aria-label`, `Earlier lessons`),
+        (n.innerHTML = ve(`m15 5.5-6.5 6.5 6.5 6.5`));
+      let r = document.createElement(`button`);
+      (r.className = `lesson-step next`),
+        r.setAttribute(`aria-label`, `More lessons`),
+        (r.innerHTML = ve(`m9 5.5 6.5 6.5L9 18.5`)),
+        t.append(n, r);
+      let i = (t) => e.scrollBy({ left: t * e.clientWidth * 0.7, behavior: `smooth` });
+      n.addEventListener(`click`, () => i(-1)), r.addEventListener(`click`, () => i(1));
+      let a = () => {
+        let n = e.scrollWidth - e.clientWidth;
+        t.classList.toggle(`can-left`, e.scrollLeft > 2), t.classList.toggle(`can-right`, e.scrollLeft < n - 2);
+      };
+      e.addEventListener(`scroll`, a, { passive: !0 }),
+        window.addEventListener(`resize`, a),
+        requestAnimationFrame(a),
+        (this.edges = a),
+        e.addEventListener(
+          `wheel`,
+          (t) => {
+            if (e.scrollWidth <= e.clientWidth) return;
+            let n = Math.abs(t.deltaX) > Math.abs(t.deltaY) ? t.deltaX : t.deltaY;
+            n && (t.preventDefault(), (e.scrollLeft += t.deltaMode === 1 ? n * 16 : n));
+          },
+          { passive: !1 },
+        );
+      let o = null;
+      e.addEventListener(`pointerdown`, (t) => {
+        t.pointerType === `mouse` &&
+          t.button === 0 &&
+          ((o = { x: t.clientX, left: e.scrollLeft, moved: !1 }), (this.dragged = !1));
+      }),
+        window.addEventListener(`pointermove`, (t) => {
+          if (!o) return;
+          let n = e.getBoundingClientRect().width / e.offsetWidth || 1,
+            r = (t.clientX - o.x) / n;
+          !o.moved && Math.abs(r) > 5 && ((o.moved = !0), e.classList.add(`is-dragging`)),
+            o.moved && (e.scrollLeft = o.left - r);
+        }),
+        window.addEventListener(`pointerup`, () => {
+          o &&
+            ((this.dragged = o.moved),
+            (o = null),
+            e.classList.remove(`is-dragging`),
+            setTimeout(() => {
+              this.dragged = !1;
+            }, 0));
+        });
+    }
+    reveal(e, t = !0) {
+      let n = this.list,
+        r = e.offsetLeft - n.offsetLeft,
+        i = r + e.offsetWidth,
+        a = null;
+      r - 40 < n.scrollLeft ? (a = r - 40) : i + 40 > n.scrollLeft + n.clientWidth && (a = i + 40 - n.clientWidth),
+        a !== null && n.scrollTo({ left: Math.max(0, a), behavior: t ? `smooth` : `auto` });
+    }
+    load() {
+      try {
+        return JSON.parse(localStorage.getItem(`learn-arduino:done`) ?? `[]`);
+      } catch {
+        return [];
+      }
+    }
+    setActive(e) {
+      for (let t of this.items) {
+        let n = t.dataset.id === e;
+        t.classList.toggle(`is-active`, n),
+          t.setAttribute(`aria-current`, n ? `step` : `false`),
+          n && requestAnimationFrame(() => this.reveal(t, this.revealed));
+      }
+      this.revealed = !0;
+    }
+    complete(e) {
+      if (this.done.has(e)) return !1;
+      this.done.add(e);
+      try {
+        localStorage.setItem(`learn-arduino:done`, JSON.stringify([...this.done]));
+      } catch {}
+      return this.paintDone(e), !0;
+    }
+    paintDone(e) {
+      for (let t of this.items)
+        t.classList.toggle(`is-done`, this.done.has(t.dataset.id)),
+          t.dataset.id === e && (t.classList.remove(`just-done`), t.offsetWidth, t.classList.add(`just-done`));
+    }
+  },
+  be = class {
+    constructor(e, t, n) {
+      (this.root = e),
+        (this.flyout = t),
+        (this.api = n),
+        (this.open = null),
+        (this.toggleBtn = e.querySelector(`.side-toggle`)),
+        this.toggleBtn.addEventListener(`click`, () => this.setExpanded(!e.classList.contains(`is-open`)));
+      for (let t of e.querySelectorAll(`[data-nav]`))
+        t.addEventListener(`click`, (e) => {
+          e.preventDefault(), this.act(t.dataset.nav, t);
+        });
+      document.addEventListener(`pointerdown`, (e) => {
+        this.open && (e.target.closest(`.flyout`) || e.target.closest(`[data-nav]`) || this.close());
+      });
+    }
+    setExpanded(e) {
+      this.root.classList.toggle(`is-open`, e),
+        this.toggleBtn.setAttribute(`aria-expanded`, String(e)),
+        this.toggleBtn.setAttribute(`aria-label`, e ? `Collapse sidebar` : `Expand sidebar`),
+        this.flyout.classList.toggle(`beside-open`, e);
+    }
+    act(e, t) {
+      e === `home`
+        ? (this.close(), this.api.home())
+        : e === `run`
+          ? (this.close(), this.api.toggleRun())
+          : this.open === e
+            ? this.close()
+            : this.show(e, t);
+    }
+    setActive(e, t) {
+      this.root.querySelector(`[data-nav="${e}"]`)?.parentElement.classList.toggle(`is-on`, t);
+    }
+    close() {
+      this.open && (this.setActive(this.open, !1), (this.open = null), this.flyout.classList.remove(`is-open`));
+    }
+    refresh() {
+      this.open && this.show(this.open, null, !0);
+    }
+    show(e, t, n = !1) {
+      this.open && this.open !== e && this.setActive(this.open, !1), (this.open = e), this.setActive(e, !0);
+      let r = this.flyout;
+      t && r.style.setProperty(`--top`, `${Math.max(40, t.parentElement.offsetTop - 6)}px`),
+        (r.dataset.kind = e),
+        (r.innerHTML = this[`render_${e}`]()),
+        this.bind(e),
+        n || (r.classList.remove(`is-open`), r.offsetWidth),
+        r.classList.add(`is-open`);
+    }
+    render_lessons() {
+      let { lessons: e, current: t, done: n } = this.api.state();
+      return `
+      <header><h2>Lessons</h2><span>${n.size}/${e.length} done</span></header>
+      <ol class="fly-list">${e
+        .map(
+          (e, r) => `
+        <li><button data-lesson="${e.id}" class="${e.id === t ? `is-current` : ``}">
+          <span class="fly-num">${n.has(e.id) ? v(`check`) : r + 1}</span>
+          <span class="fly-text"><b>${e.title}</b><small>${e.heading}</small></span>
+        </button></li>`,
+        )
+        .join(``)}</ol>`;
+    }
+    render_parts() {
+      let e = this.api.parts();
+      return `
+      <header><h2>Components</h2><span>${e.length} in view</span></header>
+      <ul class="fly-list">${e
+        .map(
+          (e, t) => `
+        <li><button data-part="${t}">
+          <span class="fly-num">${v(`focus`)}</span>
+          <span class="fly-text"><b>${e.name}</b><small>${e.desc}</small></span>
+        </button></li>`,
+        )
+        .join(``)}</ul>`;
+    }
+    render_settings() {
+      let e = this.api.settings(),
+        t = (t, n, r) => `
+      <li><label class="switch">
+        <span class="fly-text"><b>${n}</b><small>${r}</small></span>
+        <input type="checkbox" data-setting="${t}" ${e[t] ? `checked` : ``} />
+        <span class="switch-track"><span></span></span>
+      </label></li>`;
+      return `
+      <header><h2>Settings</h2></header>
+      <ul class="fly-list">
+        ${t(`labels`, `Callout labels`, `Cards and pointers around the 3D view`)}
+        ${t(`grid`, `Floor grid`, `The faint grid under the board`)}
+        ${t(`autoRotate`, `Turntable`, `Turn a quarter every few seconds when idle`)}
+        ${t(`sound`, `Sound`, `Let the buzzer play out loud`)}
+        ${t(`reducedMotion`, `Reduce motion`, `Near-instant transitions`)}
+      </ul>
+      <button class="fly-reset" data-reset>Reset progress</button>`;
+    }
+    bind(e) {
+      let t = this.flyout;
+      if (
+        (e === `lessons` &&
+          t.querySelectorAll(`[data-lesson]`).forEach((e) =>
+            e.addEventListener(`click`, () => {
+              this.close(), this.api.selectLesson(e.dataset.lesson);
+            }),
+          ),
+        e === `parts`)
+      ) {
+        let e = this.api.parts();
+        t.querySelectorAll(`[data-part]`).forEach((t) =>
+          t.addEventListener(`click`, () => this.api.focusPart(e[Number(t.dataset.part)])),
+        );
+      }
+      e === `settings` &&
+        (t
+          .querySelectorAll(`[data-setting]`)
+          .forEach((e) => e.addEventListener(`change`, () => this.api.setSetting(e.dataset.setting, e.checked))),
+        t.querySelector(`[data-reset]`).addEventListener(`click`, () => {
+          this.api.resetProgress(), this.refresh();
+        }));
+    }
+  },
+  xe = class {
+    constructor(e, { onTurn: t, onZoom: n, onReset: r }) {
+      (this.root = e),
+        (this.needle = e.querySelector(`.compass-needle`)),
+        (this.resetBtn = e.querySelector(`[data-view="reset"]`)),
+        e.querySelector(`[data-view="left"]`).addEventListener(`click`, () => t(-1)),
+        e.querySelector(`[data-view="right"]`).addEventListener(`click`, () => t(1)),
+        e.querySelector(`[data-view="out"]`).addEventListener(`click`, () => n(1 / 1.35)),
+        e.querySelector(`[data-view="in"]`).addEventListener(`click`, () => n(1.35)),
+        this.resetBtn.addEventListener(`click`, () => r()),
+        (this.hint = e.querySelector(`.view-hint`));
+    }
+    startHint() {
+      this.hintTimer ||
+        this.hint?.classList.contains(`is-gone`) ||
+        (this.hintTimer = setTimeout(() => this.dismissHint(), 9e3));
+    }
+    dismissHint() {
+      clearTimeout(this.hintTimer), this.hint?.classList.add(`is-gone`);
+    }
+    update(e, t) {
+      (this.needle.style.transform = `rotate(${-e}deg)`), this.root.classList.toggle(`is-away`, !t);
+    }
+  },
+  Se = {
+    board: [`#4a5d99`, `#26324d`],
+    breadboard: [`#efe7d6`, `#b9a993`],
+    car: [`#e3604b`, `#8c3426`],
+    sensor: [`#3a56a0`, `#22325e`],
+    motor: [`#cfc9bf`, `#7c766d`],
+    lights: [`#2c3242`, `#141a2c`],
+  },
+  Ce = [`#8e8a84`, `#4f535b`],
+  w = 176,
+  T = 118,
+  we = class {
+    constructor(e, { onMove: t }) {
+      (this.root = e),
+        (this.onMove = t),
+        (this.canvas = e.querySelector(`canvas`)),
+        (this.ctx = this.canvas.getContext(`2d`)),
+        (this.frame = null),
+        (this.visible = !1),
+        (this.ratio = 0);
+      let n = (e) => {
+          if (!this.frame) return null;
+          let t = this.canvas.getBoundingClientRect(),
+            n = ((e.clientX - t.left) / t.width) * w,
+            r = ((e.clientY - t.top) / t.height) * T,
+            { c: i, right: a, away: o, s, ox: c, oy: l } = this.frame,
+            u = (n - c) / s,
+            d = (r - l) / s;
+          return { x: i.x + a.x * u - o.x * d, z: i.z + a.z * u - o.z * d };
+        },
+        r = !1;
+      e.addEventListener(`pointerdown`, (t) => {
+        t.preventDefault(), (r = !0), e.setPointerCapture(t.pointerId);
+        let i = n(t);
+        i && this.onMove(i, !1);
+      }),
+        e.addEventListener(`pointermove`, (e) => {
+          if (!r) return;
+          let t = n(e);
+          t && this.onMove(t, !0);
+        });
+      let i = () => {
+        r = !1;
+      };
+      e.addEventListener(`pointerup`, i), e.addEventListener(`pointercancel`, i);
+    }
+    setVisible(e) {
+      e !== this.visible && ((this.visible = e), this.root.classList.toggle(`is-on`, e));
+    }
+    resize(e) {
+      let t = Math.min(3, Math.max(1, e));
+      t !== this.ratio &&
+        ((this.ratio = t), (this.canvas.width = Math.round(w * t)), (this.canvas.height = Math.round(T * t)));
+    }
+    draw(e) {
+      if (!this.visible) return;
+      let t = this.ctx,
+        n = e.controls,
+        { right: r, away: i } = n.axes(),
+        a = e.footprints(),
+        o = `${e.lessonId}|${n.view.azimuth.toFixed(3)}|${a.length}`;
+      if (!this.frame || this.fitKey !== o || e.tweens.active) {
+        this.fitKey = o;
+        let e = 1 / 0,
+          t = -1 / 0,
+          n = 1 / 0,
+          s = -1 / 0,
+          c = 0,
+          l = 0;
+        for (let e of a) (c += (e.x0 + e.x1) / 2), (l += (e.z0 + e.z1) / 2);
+        let u = { x: c / a.length, z: l / a.length },
+          d = (e, t) => [(e - u.x) * r.x + (t - u.z) * r.z, -((e - u.x) * i.x + (t - u.z) * i.z)];
+        for (let r of a)
+          for (let [i, a] of [
+            [r.x0, r.z0],
+            [r.x1, r.z0],
+            [r.x1, r.z1],
+            [r.x0, r.z1],
+          ]) {
+            let [r, o] = d(i, a);
+            (e = Math.min(e, r)), (t = Math.max(t, r)), (n = Math.min(n, o)), (s = Math.max(s, o));
+          }
+        let f = Math.min(152 / (t - e + 44), 94 / (s - n + 44));
+        this.frame = { c: u, right: r, away: i, s: f, ox: w / 2 - ((e + t) / 2) * f, oy: T / 2 - ((n + s) / 2) * f };
+      }
+      let { c: s, s: c, ox: l, oy: u } = this.frame,
+        d = (e, t) => [(e - s.x) * r.x + (t - s.z) * r.z, -((e - s.x) * i.x + (t - s.z) * i.z)],
+        f = (e, t) => {
+          let [n, r] = d(e, t);
+          return [l + n * c, u + r * c];
+        };
+      t.setTransform(this.ratio, 0, 0, this.ratio, 0, 0),
+        t.clearRect(0, 0, w, T),
+        (t.strokeStyle = `rgba(190, 168, 138, 0.35)`),
+        (t.lineWidth = 0.75);
+      let p = (e, n) => {
+        t.beginPath(), t.moveTo(...e), t.lineTo(...n), t.stroke();
+      };
+      for (let e = Math.floor((s.x - 260) / 20) * 20; e <= s.x + 260; e += 20) p(f(e, s.z - 260), f(e, s.z + 260));
+      for (let e = Math.floor((s.z - 260) / 20) * 20; e <= s.z + 260; e += 20) p(f(s.x - 260, e), f(s.x + 260, e));
+      for (let e of a) {
+        let [n, r] = Se[e.kind] ?? Ce,
+          i = [
+            [e.x0, e.z0],
+            [e.x1, e.z0],
+            [e.x1, e.z1],
+            [e.x0, e.z1],
+          ].map(([e, t]) => f(e, t));
+        t.beginPath(),
+          i.forEach((e, n) => (n ? t.lineTo(...e) : t.moveTo(...e))),
+          t.closePath(),
+          (t.fillStyle = n),
+          t.fill(),
+          (t.strokeStyle = r),
+          (t.lineWidth = 1.2),
+          t.stroke();
+      }
+      let { w: m, h } = e.size,
+        ee = [
+          [0, 0],
+          [m, 0],
+          [m, h],
+          [0, h],
+        ].map(([e, t]) => {
+          let r = n.groundAt(e, t);
+          return f(r.x, r.z);
+        });
+      t.beginPath(),
+        ee.forEach((e, n) => (n ? t.lineTo(...e) : t.moveTo(...e))),
+        t.closePath(),
+        (t.fillStyle = `rgba(26, 163, 161, 0.12)`),
+        t.fill(),
+        (t.strokeStyle = `#1aa3a1`),
+        (t.lineWidth = 1.6),
+        t.stroke();
+      let g = n.view.target,
+        [_, te] = f(g.x, g.z);
+      (t.fillStyle = `#1aa3a1`), t.beginPath(), t.arc(_, te, 2.4, 0, Math.PI * 2), t.fill();
+      let [ne, v] = f(s.x, s.z - 1),
+        [re, ie] = f(s.x, s.z),
+        y = Math.atan2(v - ie, ne - re);
+      t.save(),
+        t.translate(161, 15),
+        t.rotate(y + Math.PI / 2),
+        (t.fillStyle = `#e0523f`),
+        t.beginPath(),
+        t.moveTo(0, -7),
+        t.lineTo(4, 3),
+        t.lineTo(-4, 3),
+        t.closePath(),
+        t.fill(),
+        t.restore();
+    }
+  },
+  E = `http://www.w3.org/2000/svg`,
+  Te = 16,
+  Ee = { slide: `or drag it in the scene`, knob: `or drag around the knob`, press: `Hold it down in the scene` };
+function De(e, t) {
+  return e.unit ? (e.unit === `%` || e.unit === `°` ? `${t}${e.unit}` : `${t} ${e.unit}`) : String(t);
+}
+var Oe = class {
+    constructor(e, { svg: t, onParam: n, onFocus: r, onClose: i, onRun: a }) {
+      (this.root = e),
+        (this.onParam = n),
+        (this.onRun = a),
+        (this.onFocus = r),
+        (this.onClose = i),
+        (this.side = 1),
+        (this.top = 112),
+        (this.dock = `corner`),
+        (this.controls = new Map()),
+        (this.leader = document.createElementNS(E, `g`)),
+        this.leader.setAttribute(`class`, `insp-leader`),
+        (this.path = document.createElementNS(E, `path`)),
+        (this.end = document.createElementNS(E, `circle`)),
+        this.end.setAttribute(`r`, `4.6`),
+        this.end.setAttribute(`class`, `dot-end`),
+        this.leader.append(this.path, this.end),
+        t.append(this.leader),
+        e.addEventListener(`keydown`, (e) => {
+          e.key === `Escape` && (e.stopPropagation(), this.onClose?.());
+        });
+    }
+    get isOpen() {
+      return this.root.classList.contains(`is-on`);
+    }
+    open(e, t, n) {
+      let r = this.isOpen && this.sel && (this.sel.id ?? this.sel.info) === (e.id ?? e.info);
+      (this.sel = e), (this.params = t);
+      let i = this.root,
+        a = i.contains(document.activeElement) ? document.activeElement : null,
+        o = a?.closest(`.insp-row`)?.dataset.key,
+        s = a ? [...(a.parentElement?.children ?? [])].indexOf(a) : -1,
+        c = e.info ?? {},
+        l = Ee[e.interact];
+      i.innerHTML = `
+      <header class="insp-head">
+        <h3>${c.name ?? `Part`}</h3>
+        <button class="insp-close" type="button" aria-label="Close">${v(`close`)}</button>
+      </header>
+      ${c.desc ? `<p class="insp-desc">${c.desc}</p>` : ``}
+      <div class="insp-rows"></div>
+      <footer class="insp-foot">
+        <button class="insp-focus" type="button">${v(`focus`)}<span>Zoom to it</span></button>
+        ${l ? `<span class="insp-hint">${l}</span>` : ``}
+        ${e.live ? `<button class="insp-run" type="button">${v(`play`)}<span>Run to see it</span></button>` : ``}
+      </footer>`;
+      let u = i.querySelector(`.insp-rows`);
+      this.controls.clear();
+      for (let e of t) u.append(this.row(e, n[e.key]));
+      if (
+        ((u.hidden = !t.length),
+        i.querySelector(`.insp-close`).addEventListener(`click`, () => this.onClose?.()),
+        i.querySelector(`.insp-focus`).addEventListener(`click`, () => this.onFocus?.()),
+        i.querySelector(`.insp-run`)?.addEventListener(`click`, () => this.onRun?.()),
+        (this.size = null),
+        (this.placed = !1),
+        r || (i.classList.remove(`is-on`), i.offsetWidth),
+        i.classList.add(`is-on`),
+        this.leader.classList.add(`is-on`),
+        o)
+      ) {
+        let e = i.querySelector(`.insp-row[data-key="${o}"]`);
+        (e?.querySelector(`[role="radiogroup"]`)?.children[s] ?? e?.querySelector(`input, button`))?.focus({
+          preventScroll: !0,
+        });
+      }
+    }
+    setRunning(e) {
+      this.root.classList.toggle(`is-running`, e), (this.size = null);
+    }
+    close() {
+      (this.sel = null), this.root.classList.remove(`is-on`), this.leader.classList.remove(`is-on`);
+    }
+    row(e, t) {
+      let n = document.createElement(`div`);
+      (n.className = `insp-row is-${e.type}`), (n.dataset.key = e.key);
+      let r = `insp-${e.key}`;
+      if (e.type === `range`) {
+        n.innerHTML = `
+        <label for="${r}"><span>${e.label}</span><output></output></label>
+        <input id="${r}" type="range" min="${e.min}" max="${e.max}" step="${e.step ?? 1}" />
+        ${e.hint ? `<p class="insp-note">${e.hint}</p>` : ``}`;
+        let i = n.querySelector(`input`),
+          a = n.querySelector(`output`);
+        e.tint && i.style.setProperty(`--accent`, e.tint),
+          i.addEventListener(`input`, () => this.onParam?.(e.key, Number(i.value)));
+        let o = (t) => {
+          (document.activeElement !== i || Number(i.value) !== t) && (i.value = t);
+          let n = e.step ?? 1;
+          (a.textContent = De(e, +(Math.round(t / n) * n).toFixed(2))),
+            i.style.setProperty(`--fill`, `${((t - e.min) / (e.max - e.min)) * 100}%`);
+        };
+        return this.controls.set(e.key, o), o(t), n;
+      }
+      if (e.type === `toggle`) {
+        n.innerHTML = `
+        <label class="insp-switch"><input id="${r}" type="checkbox" role="switch" /><span class="track"><span class="knob"></span></span><span>${e.label}</span></label>`;
+        let i = n.querySelector(`input`);
+        i.addEventListener(`change`, () => this.onParam?.(e.key, i.checked));
+        let a = (e) => {
+          i.checked = !!e;
+        };
+        return this.controls.set(e.key, a), a(t), n;
+      }
+      let i = e.type === `swatch`;
+      n.innerHTML = `
+      <div class="insp-label"><span>${e.label}</span>${i ? `<output></output>` : ``}</div>
+      <div class="${i ? `swatches` : `seg`}" role="radiogroup" aria-label="${e.label}"></div>
+      <p class="insp-note"></p>`;
+      let a = n.querySelector(`[role="radiogroup"]`),
+        o = n.querySelector(`.insp-note`),
+        s = n.querySelector(`output`),
+        c = e.options.map((t) => {
+          let n = document.createElement(`button`);
+          return (
+            (n.type = `button`),
+            n.setAttribute(`role`, `radio`),
+            i
+              ? ((n.className = `swatch`),
+                n.style.setProperty(`--c`, t.color),
+                n.setAttribute(`aria-label`, t.label),
+                (n.title = t.label))
+              : (n.textContent = t.label),
+            n.addEventListener(`click`, () => this.onParam?.(e.key, t.value)),
+            a.append(n),
+            n
+          );
+        });
+      a.addEventListener(`keydown`, (t) => {
+        let n = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 }[t.key];
+        if (!n) return;
+        t.preventDefault();
+        let r = c.indexOf(document.activeElement),
+          i = (Math.max(0, r) + n + c.length) % c.length;
+        c[i].focus(), this.onParam?.(e.key, e.options[i].value);
+      });
+      let l = (t) => {
+        let n = e.options.find((e) => e.value === t);
+        c.forEach((n, r) => {
+          let i = e.options[r].value === t;
+          n.classList.toggle(`is-on`, i), n.setAttribute(`aria-checked`, String(i));
+        }),
+          s && (s.textContent = n?.label ?? (i ? `Custom` : ``)),
+          (o.textContent = n?.note ?? ``),
+          (o.hidden = !n?.note);
+      };
+      return this.controls.set(e.key, l), l(t), n;
+    }
+    sync(e) {
+      if (this.isOpen) {
+        for (let [t, n] of this.controls) n(e[t]);
+        this.size = null;
+      }
+    }
+    pulse(e) {
+      let t = this.root.querySelector(`.insp-row[data-key="${e}"]`);
+      t &&
+        (t.classList.remove(`is-pulse`),
+        t.offsetWidth,
+        t.classList.add(`is-pulse`),
+        t.querySelector(`input, button`)?.focus({ preventScroll: !0 }));
+    }
+    get footprint() {
+      return this.isOpen && this.dock === `bottom` ? this.root.offsetHeight + 20 : 0;
+    }
+    place(e, t, n) {
+      if (!this.isOpen || !e) return;
+      this.size ??= { w: this.root.offsetWidth, h: this.root.offsetHeight };
+      let { w: r, h: i } = this.size,
+        a = Math.min(Te, t / 30);
+      if (this.dock === `bottom`) {
+        let a = (t - r) / 2,
+          o = n - i - 10;
+        this.root.style.transform = `translate(${Math.round(a)}px, ${Math.round(o)}px)`;
+        let s = Math.min(a + r - 30, Math.max(a + 30, e[0])),
+          c = e[1] < o - 8;
+        this.path.setAttribute(`d`, c ? `M${s} ${o} L${s} ${Math.max(e[1] + 4, o - 22)} L${e[0]} ${e[1]}` : ``),
+          this.end.setAttribute(`cx`, e[0]),
+          this.end.setAttribute(`cy`, e[1]),
+          this.leader.classList.toggle(`is-away`, !c || e[0] < -40 || e[0] > t + 40 || e[1] < -40);
+        return;
+      }
+      let o = Math.max(a, Math.min(this.top, n - i - 58)),
+        s = (e) => (e < 0 ? a : t - r - a),
+        c = (t) => e[0] > s(t) - 24 && e[0] < s(t) + r + 24 && e[1] < o + i + 24;
+      this.placed ? c(this.side) && !c(-this.side) && (this.side = -this.side) : (this.side = e[0] > t / 2 ? -1 : 1),
+        (this.placed = !0);
+      let l = s(this.side);
+      this.root.style.transform = `translate(${Math.round(l)}px, ${Math.round(o)}px)`;
+      let u = Math.min(l + r - 30, Math.max(l + 30, e[0])),
+        d = o + i,
+        f = Math.min(e[1] - 4, d + 26),
+        p =
+          e[1] > d + 8
+            ? `M${u} ${d} L${u} ${f} L${e[0]} ${e[1]}`
+            : `M${this.side < 0 ? l + r : l} ${o + i / 2} L${e[0]} ${e[1]}`;
+      this.path.setAttribute(`d`, p), this.end.setAttribute(`cx`, e[0]), this.end.setAttribute(`cy`, e[1]);
+      let m = e[0] < -40 || e[1] < -40 || e[0] > t + 40 || e[1] > n + 40;
+      this.leader.classList.toggle(`is-away`, m);
+    }
+  },
+  ke = class {
+    constructor(e) {
+      (this.root = e),
+        (this.fill = e?.querySelector(`.loader-fill`)),
+        (this.label = e?.querySelector(`.loader-step`)),
+        (this.value = 0),
+        (this.closed = !e);
+    }
+    step(e, t) {
+      this.closed ||
+        (e && (this.label.textContent = e),
+        t > this.value && ((this.value = t), (this.fill.style.transform = `scaleX(${t})`)));
+    }
+    done() {
+      return this.closed
+        ? Promise.resolve()
+        : ((this.closed = !0),
+          this.step(`Ready`, 1),
+          document.documentElement.classList.remove(`is-loading`),
+          this.root.classList.add(`is-done`),
+          new Promise((e) => {
+            let t = () => {
+                this.root.remove(), e();
+              },
+              n = parseFloat(getComputedStyle(this.root).transitionDuration) * 1e3 || 0;
+            setTimeout(t, n + 50);
+          }));
+    }
+    fail(e) {
+      this.root && ((this.closed = !0), this.root.classList.add(`is-failed`), (this.label.textContent = e));
+    }
+  },
+  D = null;
+function Ae() {
+  let e = window.AudioContext || window.webkitAudioContext;
+  e && ((D ??= new e()), D.state === `suspended` && D.resume());
+}
+function je(e, t, n = 0.4) {
+  if (!D || !e || n <= 0) return;
+  let r = D.currentTime,
+    i = t / 1e3,
+    a = D.createOscillator();
+  (a.type = `square`), (a.frequency.value = e);
+  let o = D.createGain(),
+    s = 0.06 * n;
+  o.gain.setValueAtTime(0, r),
+    o.gain.linearRampToValueAtTime(s, r + 0.006),
+    o.gain.setValueAtTime(s, Math.max(r + 0.006, r + i - 0.03)),
+    o.gain.linearRampToValueAtTime(0, r + i),
+    a.connect(o).connect(D.destination),
+    a.start(r),
+    a.stop(r + i + 0.02);
+}
+var Me = `modulepreload`,
+  Ne = function (e) {
+    return `/` + e;
+  },
+  Pe = {},
+  Fe = function (e) {
+    return e.pathname.endsWith(`.css`);
+  },
+  Ie = function (e, t, n) {
+    if (t in e) return e[t];
+    let r = n();
+    if (!r) {
+      e[t] = void 0;
+      return;
+    }
+    let i = r.then(
+      () => {
+        e[t] = void 0;
+      },
+      (n) => {
+        throw ((e[t] = void 0), n);
+      },
+    );
+    return (e[t] = i), i;
+  },
+  Le = function (e, t, n) {
+    let r = Promise.resolve();
+    if (t && t.length > 0) {
+      let e,
+        i = document.querySelector(`meta[property=csp-nonce]`),
+        a = i?.nonce || i?.getAttribute(`nonce`);
+      function o(e) {
+        return Promise.all(
+          e.map((e) =>
+            Promise.resolve(e).then(
+              (e) => ({ status: `fulfilled`, value: e }),
+              (e) => ({ status: `rejected`, reason: e }),
+            ),
+          ),
+        );
+      }
+      function s(e) {
+        return import.meta.resolve ? new URL(import.meta.resolve(e)) : new URL(e, import.meta.url);
+      }
+      r = o(
+        t
+          .map((t) => {
+            t = Ne(t, n);
+            let r = s(t),
+              i = Fe(r);
+            return Ie(Pe, r.href, () => {
+              if (e === void 0) {
+                e = { all: new Set(), styles: new Set() };
+                let t = document.getElementsByTagName(`link`);
+                for (let n = t.length - 1; n >= 0; n--) {
+                  let r = t[n];
+                  e.all.add(r.href), r.rel === `stylesheet` && e.styles.add(r.href);
+                }
+              }
+              if ((i ? e.styles : e.all).has(r.href)) return;
+              let t = document.createElement(`link`);
+              if (
+                ((t.rel = i ? `stylesheet` : Me),
+                i || (t.as = `script`),
+                (t.crossOrigin = ``),
+                (t.href = r.href),
+                a && t.setAttribute(`nonce`, a),
+                document.head.appendChild(t),
+                i)
+              )
+                return new Promise((e, n) => {
+                  t.addEventListener(`load`, e),
+                    t.addEventListener(`error`, () => n(Error(`Unable to preload CSS for ${r}`)));
+                });
+            });
+          })
+          .filter((e) => e !== void 0),
+      );
+    }
+    function i(e) {
+      let t = new Event(`vite:preloadError`, { cancelable: !0 });
+      if (((t.payload = e), window.dispatchEvent(t), !t.defaultPrevented)) throw e;
+    }
+    return r.then((t) => {
+      for (let e of t || []) e.status === `rejected` && i(e.reason);
+      return e().catch(i);
+    });
+  },
+  Re = 1672,
+  ze = 941,
+  Be = 0.8,
+  Ve = 1280,
+  He = 0.62,
+  Ue = { x: 10, y: 70 },
+  We = 180 / Math.PI,
+  O = (e) => document.querySelector(e),
+  k = O(`#app`),
+  A = O(`#stage`),
+  j = O(`#rig`),
+  M = O(`#tip`),
+  N = 1,
+  P = !1,
+  F = !1,
+  Ge = 0.85,
+  I = o.find((e) => `#${e.id}` === location.hash),
+  L = { lesson: I ?? o[0], running: `idle`, settings: qe(), saved: Ke(`learn-arduino:values`, {}), values: {} };
+L.values = $e(L.lesson);
+function Ke(e, t) {
+  try {
+    return JSON.parse(localStorage.getItem(e) ?? `null`) ?? t;
+  } catch {
+    return t;
+  }
+}
+function qe() {
+  let e = {
+    labels: !0,
+    grid: !0,
+    autoRotate: !1,
+    sound: !0,
+    reducedMotion: window.matchMedia?.(`(prefers-reduced-motion: reduce)`).matches ?? !1,
+  };
+  try {
+    return { ...e, ...JSON.parse(localStorage.getItem(`learn-arduino:settings`) ?? `{}`) };
+  } catch {
+    return e;
+  }
+}
+function Je() {
+  try {
+    localStorage.setItem(`learn-arduino:settings`, JSON.stringify(L.settings));
+  } catch {}
+}
+function Ye() {
+  let e = document.documentElement.clientWidth || window.innerWidth,
+    t = document.documentElement.clientHeight || window.innerHeight,
+    n = Math.min(e / Re, t / ze);
+  if (
+    (n < Be && (n = Math.min(e / Ve, t / ze, Be)),
+    (P = n < He || e / t < 0.95),
+    document.documentElement.classList.toggle(`compact`, P),
+    P)
+  ) {
+    (N = 1), (k.style.width = ``), (k.style.height = ``), (k.style.transform = ``);
+    return;
+  }
+  N = n;
+  let r = e / N,
+    i = t / N;
+  (k.style.width = `${r}px`), (k.style.height = `${i}px`), (k.style.transform = `scale(${N})`), ee(O(`#traces`), r, i);
+}
+Ye(), te(O(`#clock-date`), O(`#clock-time`));
+var R = new le(O(`.info-card`), { onExpand: (e) => e && B.toggleExpanded(!1) }),
+  z = new ye(O(`#lesson-list`), o, { onSelect: (e) => Y(e) }),
+  B = new he(O(`.code-card`), {
+    onRun: () => X(),
+    onStop: () => Z(),
+    onParam: (e) => it(e),
+    onExpand: (e) => {
+      e && R.toggleExpanded(!1), R.setCovered(e);
+    },
+  }),
+  V = null,
+  Xe = 300,
+  H = null,
+  U = 0,
+  W = new Oe(O(`#inspector`), {
+    svg: O(`#insp-lines`),
+    onParam: (e, t) => nt(e, t),
+    onFocus: () => V?.selection && V.focusGroup(V.selection.group),
+    onClose: () => V?.select(null),
+    onRun: () => X(),
+  }),
+  G = new se({
+    rig: j,
+    svg: O(`#leaders`),
+    tags: O(`#tags`),
+    onFocus: (e) => {
+      V &&
+        (e.anchor.startsWith(`part:`) && V.parts.has(e.anchor.slice(5))
+          ? V.select(e.anchor.slice(5))
+          : V.focusAnchor(e.anchor));
+    },
+  }),
+  K = new we(O(`#minimap`), {
+    onMove: (e, t) => {
+      if (!V) return;
+      let n = V.controls;
+      t
+        ? (n.stopAnimation(), n.view.target.set(e.x, 0, e.z), n.clampTarget(), V.touch())
+        : n.animateTo({ target: [e.x, 0, e.z] }, { duration: 420 });
+    },
+  }),
+  q = new xe(O(`#viewbar`), {
+    onTurn: (e) => V?.controls.turn(e),
+    onZoom: (e) => V?.controls.zoomBy(e),
+    onReset: () => V?.resetView(),
+  }),
+  J = new be(O(`.sidebar`), O(`#flyout`), {
+    home: () => {
+      Y(o[0].id), V?.resetView();
+    },
+    toggleRun: () => (L.running === `idle` ? X() : Z()),
+    state: () => ({ lessons: o, current: L.lesson.id, done: z.done }),
+    selectLesson: (e) => Y(e),
+    parts: () => ot(),
+    focusPart: (e) => {
+      e.group && V && (V.focusGroup(e.group), V.select(e.group));
+    },
+    settings: () => L.settings,
+    setSetting: (e, t) => Qe(e, t),
+    resetProgress: () => {
+      z.done.clear();
+      try {
+        localStorage.removeItem(`learn-arduino:done`);
+      } catch {}
+      z.paintDone(), Ze();
+    },
+  });
+function Ze() {
+  let e = z.done.size,
+    t = o.length;
+  (O(`#progress-count`).textContent = `${e}/${t}`),
+    (O(`#progress-fill`).style.width = `${(e / t) * 100}%`),
+    O(`.progress-track`).setAttribute(`aria-valuenow`, String(e)),
+    O(`.progress-track`).setAttribute(`aria-valuemax`, String(t));
+}
+Ze();
+function Qe(e, t) {
+  (L.settings[e] = t),
+    Je(),
+    e === `labels` && G.setVisible(t),
+    e === `grid` && V?.setGrid(t),
+    e === `autoRotate` && V && (V.autoRotate = t),
+    e === `reducedMotion` && (V?.setReducedMotion(t), document.documentElement.classList.toggle(`reduce-motion`, t));
+}
+function $e(e) {
+  let t = s(e),
+    n = L.saved[e.id] ?? {};
+  for (let r of e.params ?? []) {
+    if (!(r.key in n)) continue;
+    let e = n[r.key];
+    r.type === `range` && typeof e == `number`
+      ? (t[r.key] = Math.min(r.max, Math.max(r.min, e)))
+      : ((r.type === `toggle` && typeof e == `boolean`) || r.options?.some((t) => t.value === e)) && (t[r.key] = e);
+  }
+  return e.constrain?.(t), t;
+}
+var et = 0;
+function tt() {
+  et ||= setTimeout(() => {
+    (et = 0), (L.saved[L.lesson.id] = { ...L.values });
+    try {
+      localStorage.setItem(`learn-arduino:values`, JSON.stringify(L.saved));
+    } catch {}
+  }, 400);
+}
+function nt(e, t, { fromSim: n = !1 } = {}) {
+  let r = L.lesson,
+    i = r.params?.find((t) => t.key === e);
+  if (!i) return;
+  let a = L.values,
+    o = t;
+  if (
+    (i.type === `range` && (o = Math.min(i.max, Math.max(i.min, Number(t)))),
+    i.type === `toggle` && (o = !!t),
+    a[e] === o)
+  )
+    return;
+  let s = { ...a };
+  (a[e] = o), r.constrain?.(a, e), V?.updateParams(a);
+  let c = (e) => r.code.includes(`{{${e}}}`) || r.code.includes(`{{${e}.`),
+    l = Object.keys(a).filter((e) => a[e] !== s[e] && c(e));
+  l.length && B.update(a, l),
+    V?.selection && V.selection.group.userData.part !== W.sel?.info ? rt() : W.sync(a),
+    n || tt();
+}
+function rt() {
+  let e = V?.selection;
+  if ((st(null), !e)) {
+    W.close(), B.mark([]);
+    return;
+  }
+  let t = e.id ? (L.lesson.params ?? []).filter((t) => t.part === e.id) : [],
+    n = e.id ? V.parts.get(e.id)?.spec.interact?.type : null;
+  W.open({ id: e.id, info: e.group.userData.part, interact: n, live: !n && t.length > 0 }, t, L.values),
+    B.mark(t.map((e) => e.key)),
+    V.touch(),
+    W.dock === `bottom` && !V.controls.grab && requestAnimationFrame(() => V.revealSelection(W.footprint));
+}
+function it(e) {
+  let t = L.lesson.params?.find((t) => t.key === e);
+  t && V && (V.select(t.part), W.pulse(e));
+}
+function Y(e) {
+  let t = o.find((t) => t.id === e) ?? o[0];
+  t === L.lesson
+    ? V?.resetView()
+    : (Z(),
+      (L.lesson = t),
+      (L.values = $e(t)),
+      z.setActive(t.id),
+      R.setLesson(t),
+      B.setLesson(t, L.values),
+      G.show(t, { delay: L.settings.reducedMotion ? 0 : 1e3 }),
+      V?.setLesson(t.id, { values: L.values }),
+      J.refresh(),
+      history.replaceState(null, ``, `#${t.id}`),
+      (document.title = at(t)));
+}
+function at(e) {
+  return `${e.title} · Learn Arduino`;
+}
+async function X() {
+  if (!V) return;
+  Ae(), (L.running = `uploading`), B.setState(`uploading`), W.setRunning(!0), J.setActive(`run`, !0);
+  let e = L.lesson;
+  (await V.runSketch(e.sim, { out: (e) => B.log(e), trace: (e) => B.trace(e) })) &&
+    e === L.lesson &&
+    ((L.running = `running`), B.setState(`running`), z.complete(e.id) && (Ze(), J.refresh()));
+}
+function Z() {
+  V?.stopSim(),
+    B.trace(null),
+    L.running !== `idle` && B.log(`Stopped.`),
+    (L.running = `idle`),
+    B.setState(`idle`),
+    W.setRunning(!1),
+    J.setActive(`run`, !1);
+}
+function ot() {
+  if (!V) return [];
+  let e = [];
+  for (let { group: t } of V.parts.values())
+    t.userData.part && !t.userData.wire && e.push({ ...t.userData.part, group: t });
+  let t = [`dip`, `usb`, `jack`, `reset`, `digitalA`, `power`, `analog`, `qfn`, `crystal`];
+  V.board.traverse((n) => {
+    let r = n.userData.part;
+    r && t.includes(r.key) && !e.some((e) => e.name === r.name) && e.push({ ...r, group: n });
+  });
+  let n = (e) => (e.key ? t.indexOf(e.key) + 100 : 0);
+  return e.sort((e, t) => n(e) - n(t)).slice(0, 12);
+}
+function st(e, t) {
+  if ((e && V?.selection?.group.userData.part === e && (e = null), !e || !t)) {
+    M.classList.remove(`is-on`);
+    return;
+  }
+  (M.querySelector(`b`).textContent = e.name), (M.querySelector(`span`).textContent = e.desc ?? ``);
+  let n = lt(t.x, t.y),
+    r = n.x > A.offsetWidth - 260;
+  (M.style.transform = `translate(${n.x + (r ? -16 : 16)}px, ${n.y + 18}px) translateX(${r ? `-100%` : `0`})`),
+    M.classList.add(`is-on`);
+}
+function ct() {
+  let e = A.getBoundingClientRect(),
+    t = [],
+    n = (n, r = !1) => {
+      let i = n.getBoundingClientRect();
+      if (!i.width || !i.height) return;
+      let a = getComputedStyle(n);
+      a.display === `none` ||
+        (!r && (a.visibility === `hidden` || Number(a.opacity) < 0.3)) ||
+        t.push({
+          x0: (i.left - e.left) / N,
+          y0: (i.top - e.top) / N,
+          x1: (i.right - e.left) / N,
+          y1: (i.bottom - e.top) / N,
+        });
+    };
+  return (
+    !j.classList.contains(`is-free`) && !j.classList.contains(`is-off`)
+      ? (document.querySelectorAll(`.callout:not(.is-leaving)`).forEach((e) => n(e, !0)),
+        document.querySelectorAll(`.leaders .leader path`).forEach((e) => {
+          let n = (e.getAttribute(`d`) ?? ``).match(/-?\d+(\.\d+)?/g)?.map(Number) ?? [];
+          for (let e = 0; e + 3 < n.length; e += 2)
+            t.push({
+              poly: [
+                [n[e], n[e + 1]],
+                [n[e + 2], n[e + 3]],
+              ],
+            });
+        }))
+      : document.querySelectorAll(`.tags.is-free .tag:not(.is-hidden)`).forEach((e) => n(e, !0)),
+    document.querySelectorAll(`.viewbar, .minimap, .inspector, .brand, .status`).forEach((e) => n(e)),
+    t
+  );
+}
+function lt(e, t) {
+  let n = A.getBoundingClientRect();
+  return { x: (e - n.left) / N, y: (t - n.top) / N };
+}
+R.setLesson(L.lesson),
+  B.setLesson(L.lesson, L.values),
+  z.setActive(L.lesson.id),
+  I && (document.title = at(I)),
+  G.setVisible(L.settings.labels),
+  document.documentElement.classList.toggle(`reduce-motion`, L.settings.reducedMotion);
+var Q = new ke(O(`#loader`)),
+  ut = 2e4,
+  dt = `The 3D board is drawn with WebGL, which this browser has turned off. Turn on hardware acceleration in its settings, or try another browser — the lessons and their code still work.`,
+  $ = !1;
+function ft() {
+  ($ = !0), (O(`#app`).inert = !1), Q.done();
+}
+function pt() {
+  !$ && V && (ft(), setTimeout(() => G.release(), 180), q.startHint());
+}
+function mt() {
+  if ($) return;
+  A.classList.add(`no-webgl`);
+  let e = document.createElement(`div`);
+  (e.className = `stage-note`),
+    e.setAttribute(`role`, `note`),
+    (e.innerHTML = `<b>3D view unavailable</b><p>${dt}</p>`),
+    A.append(e),
+    ft();
+}
+var ht = (e) =>
+  new Promise((t) => {
+    let n = () => (e-- > 0 ? requestAnimationFrame(n) : t());
+    n();
+  });
+function gt(e) {
+  return new e(O(`#board-canvas`), A, {
+    toStage: lt,
+    onFrame: (e) => {
+      G.update(e);
+      let t = e.isHome();
+      G.setFree(!t || !!e.selection || F), q.update((e.view.azimuth - 36 / We) * We, t);
+      let n = !P && !e.headingHome(),
+        r = performance.now();
+      n ? (H ??= r) : (H = null);
+      let i = n && r - H >= Xe;
+      K.setVisible(i),
+        n &&
+          !i &&
+          !U &&
+          (U = setTimeout(
+            () => {
+              (U = 0), V && (V.dirty = !0);
+            },
+            Xe - (r - H) + 16,
+          )),
+        K.draw(e),
+        W.place(e.selectionScreen(), e.size.w, e.size.h);
+    },
+    onHover: (e, t) => st(e, t),
+    onSelect: () => rt(),
+    blockers: () => ct(),
+    onParam: (e, t, n) => nt(e, t, n),
+    sound: () => L.settings.sound,
+  });
+}
+async function _t() {
+  setTimeout(pt, ut),
+    Q.step(`Loading fonts`, 0.08),
+    await Promise.all([
+      document.fonts.load(`700 40px "Barlow Semi Condensed"`),
+      document.fonts.load(`600 40px "Barlow Semi Condensed"`),
+      document.fonts.load(`500 40px "Barlow Semi Condensed"`),
+    ]).catch(() => {}),
+    Q.step(`Loading the 3D view`, 0.18);
+  let { BoardStage: e } = await Le(
+    async () => {
+      let { BoardStage: e } = await import(`./stage-btHE6-0n.js`);
+      return { BoardStage: e };
+    },
+    __vite__mapDeps([0, 1]),
+  );
+  Q.step(`Building the board`, 0.32), await ht(2);
+  try {
+    V = gt(e);
+  } catch (e) {
+    console.error(e), mt();
+    return;
+  }
+  V.setGrid(L.settings.grid),
+    (V.autoRotate = L.settings.autoRotate),
+    V.setReducedMotion(L.settings.reducedMotion),
+    (window.__app = { stage: V, selectLesson: Y, run: X, stop: Z, state: L, setParam: nt, inspector: W, minimap: K });
+  let t = () => {
+    let e = A.offsetWidth,
+      t = A.offsetHeight;
+    if (!e || !t) return;
+    let n = Math.min(1, e / 1090, t / 800);
+    F = P || n < Ge;
+    let r = P ? 12 : 100,
+      i = F ? { w: e - 28, h: t - r - 70 } : null,
+      a = F ? e / 2 : e / 2 + Ue.x * n,
+      o = F ? r + (t - r - 58) / 2 : t / 2 + Ue.y * n,
+      s = V.isHome();
+    (j.style.left = `${a}px`),
+      (j.style.top = `${o}px`),
+      (j.style.transform = n < 1 ? `scale(${n})` : ``),
+      (G.origin = { x: a, y: o }),
+      (G.scale = n),
+      G.invalidate(),
+      (W.top = P ? 12 : 112),
+      (W.dock = P ? `bottom` : `corner`);
+    let c = Math.min(2, Math.max(1.5, window.devicePixelRatio * N));
+    V.resize(e, t, a, o, c, n, i), K.resize(window.devicePixelRatio * N * 1.5), s && V.controls.jumpTo(V.homeView());
+  };
+  t(),
+    window.addEventListener(`resize`, () => {
+      Ye(), t();
+    }),
+    new ResizeObserver(() => t()).observe(A),
+    V.setLesson(L.lesson.id, { instant: !0, values: L.values }),
+    G.show(L.lesson, { hold: !0 }),
+    A.addEventListener(`dblclick`, (e) => {
+      if (e.target !== O(`#board-canvas`)) return;
+      let t = V.pick(e.clientX, e.clientY);
+      t && t.info.lift !== !1 ? V.focusGroup(t.group) : V.resetView();
+    }),
+    A.addEventListener(`pointerdown`, () => q.dismissHint(), { once: !0 }),
+    await ht(2),
+    Q.step(`Drawing the lessons`, 0.6);
+  try {
+    let { renderThumbnails: e } = await Le(
+      async () => {
+        let { renderThumbnails: e } = await import(`./thumbs-gagaX1E4.js`);
+        return { renderThumbnails: e };
+      },
+      __vite__mapDeps([2, 1]),
+    );
+    await e(document.querySelectorAll(`[data-thumb]`), {
+      renderer: V.renderer,
+      environment: V.scene.environment,
+      board: V.board,
+      onEach: (e, t) => Q.step(`Drawing the lessons · ${e} / ${t}`, 0.6 + (0.38 * e) / t),
+    });
+  } catch (e) {
+    console.error(e);
+  }
+  await ht(1), pt();
+}
+window.addEventListener(`keydown`, (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey || !$) return;
+  let t = document.activeElement?.tagName;
+  if (t === `INPUT` || t === `TEXTAREA`) return;
+  let n = t === `BUTTON` || document.activeElement?.getAttribute(`role`) === `button`,
+    r = V?.controls,
+    i = e.key;
+  if (i === `Escape`) {
+    if (V?.selection) {
+      V.select(null);
+      return;
+    }
+    if ((J.close(), R.expanded || B.expanded)) {
+      R.toggleExpanded(!1), B.toggleExpanded(!1);
+      return;
+    }
+    V?.resetView();
+  } else if (r) {
+    if (i === `r` || i === `R` || i === `Home`) V.resetView();
+    else if (/^[0-9]$/.test(i) && o[(Number(i) + 9) % 10]) Y(o[(Number(i) + 9) % 10].id);
+    else if (i === `[` || i === `]`) {
+      let e = o.indexOf(L.lesson) + (i === `]` ? 1 : -1);
+      o[e] && Y(o[e].id);
+    } else if (i === ` ` && !n) L.running === `idle` ? X() : Z();
+    else return;
+    e.preventDefault();
+  }
+}),
+  _t().catch((e) => {
+    console.error(e), Q.fail(`Something went wrong while starting. Try reloading the page.`);
+  });
+export { i as n, je as t };
