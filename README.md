@@ -1,126 +1,169 @@
 # Learn Arduino — Clone
 
-Clon completo de `learn-arduino-red.vercel.app` — aplicación educativa interactiva de Arduino en 3D con Three.js.
+A complete clone of the interactive Arduino learning experience from `learn-arduino-red.vercel.app`, rebuilt as a client-side web app with a 3D board view and lesson-based learning flow.
 
-## Estructura
+This project explores how an educational Arduino simulator can be packaged in a browser using Three.js, custom UI panels, interactive components, and code-based exercises.
 
-```
+## Overview
+
+The app teaches core Arduino concepts through a guided set of lessons, each focused on a different hardware pattern:
+
+- LEDs and digital output
+- Inputs such as buttons and sensors
+- Analog signals and PWM
+- Sound and motors
+- Servo control and integrated projects
+
+It is designed as a hands-on visual learning environment where learners can inspect the board, read code examples, and observe simulated hardware behavior in real time.
+
+## Features
+
+- 3D Arduino board visualization
+- Layered lesson navigation
+- Embedded code examples and simulation logic
+- Interactive inspector and callout system
+- Audio feedback for sound-related lessons
+- Browser-only implementation with no backend
+
+## Project structure
+
+```text
 learn-arduino/
-├── index.html              # HTML principal (247 líneas)
-├── package.json            # Config del proyecto
-├── vite.config.js         # Config de Vite
-├── assets/                 # Assets compilados (funcionales)
-│   ├── index-DUxJjXqx.js   # App principal (88KB) — lecciones, UI, simulador
-│   ├── stage-btHE6-0n.js   # BoardStage 3D + Three.js (404KB)
-│   ├── kit-Ce41oYCW.js     # Three.js core kit (283KB)
-│   ├── thumbs-gagaX1E4.js  # Renderizado de thumbnails (4KB)
-│   ├── index-DM35LHSX.css  # Estilos (52KB)
-│   └── *.woff2             # Fuentes (Barlow, JetBrains Mono)
-├── public/                 # Assets estáticos
+├── index.html              # Main app entry
+├── package.json            # Project scripts and dependencies
+├── vite.config.js         # Vite configuration
+├── assets/                 # Production bundle assets
+│   ├── index-DUxJjXqx.js   # Main app logic
+│   ├── stage-btHE6-0n.js   # 3D rendering and board logic
+│   ├── kit-Ce41oYCW.js     # Three.js core helpers
+│   ├── thumbs-gagaX1E4.js  # Thumbnail generation
+│   ├── index-DM35LHSX.css  # App styles
+│   └── *.woff2             # Fonts
+├── public/                 # Static assets
 │   ├── favicon.ico/svg
 │   ├── icon-192/512.png
 │   ├── og-image.png
 │   ├── robots.txt
 │   ├── sitemap.xml
 │   └── site.webmanifest
-└── analysis/               # Código de-minificado para análisis
-    ├── index.pretty.js     # 3,830 líneas — app principal legible
-    ├── stage.pretty.js     # 14,485 líneas — 3D engine legible
-    ├── kit.pretty.js       # 13,409 líneas — Three.js core legible
-    ├── thumbs.pretty.js    # 191 líneas — thumbnails legible
-    └── index.pretty.css    # 3,216 líneas — CSS legible
+├── analysis/               # De-minified source for inspection
+│   ├── index.pretty.js
+│   ├── stage.pretty.js
+│   ├── kit.pretty.js
+│   ├── thumbs.pretty.js
+│   └── index.pretty.css
+└── src/                    # Source files used by the app
+    ├── main.js
+    ├── esp32Viewer.js
+    ├── audio/
+    ├── data/
+    ├── stage/
+    ├── state/
+    ├── styles/
+    └── ui/
 ```
 
-## Arquitectura
+## Quick start
 
-### Chunks JS (4 archivos)
-
-| Chunk | Tamaño | Líneas (pretty) | Función |
-|-------|--------|-----------------|---------|
-| `index-DUxJjXqx.js` | 88KB | 3,830 | App principal: lecciones, UI, simulador Arduino, state management |
-| `stage-btHE6-0n.js` | 404KB | 14,485 | BoardStage: renderizado 3D del Arduino Uno, interacción, simulación |
-| `kit-Ce41oYCW.js` | 283KB | 13,409 | Three.js core: WebGLRenderer, geometrías, materiales, shaders |
-| `thumbs-gagaX1E4.js` | 4KB | 191 | Renderizado de thumbnails para lesson cards |
-
-### Lecciones (11 total)
-
-1. **board** — Meet the board (Arduino Uno overview)
-2. **blink** — Blink an LED (digitalWrite, delays)
-3. **button** — Push a button (digitalRead, pull-down resistor)
-4. **knob** — Turn a knob (potentiometer, analogRead, PWM)
-5. **rgb** — Mix colours (RGB LED, analogWrite)
-6. **light** — Sense light (LDR, analog input)
-7. **sensor** — Read a sensor (HC-SR04 ultrasonic)
-8. **sound** — Make a sound (buzzer, tones)
-9. **motor** — Control a motor (transistor + DC motor)
-10. **servo** — Sweep a servo (Servo library)
-11. **project** — Build a project (combined sensor + traffic light)
-
-### Clases principales (index.pretty.js)
-
-- `se` — LessonList (navegación de lecciones)
-- `le` — CodePanel (editor de código + serial monitor)
-- `he` — Inspector (panel de propiedades de componentes)
-- `ye` — Callouts (anotaciones 3D en el board)
-- `be` — Tags (etiquetas flotantes)
-- `xe` — Minimap
-- `we` — ProgressTracker
-- `Oe` — Loader (pantalla de carga)
-- `ke` — HintSystem (tooltips)
-
-### Clases principales (stage.pretty.js)
-
-- `BoardStage` — Controlador principal del 3D
-- `Kt` — PMREMGenerator (environment maps)
-- `tn` — WebGLRenderer wrapper
-- `fr/pr/mr` — Geometry builders (componentes Arduino)
-- `vr` — Board builder (Arduino Uno PCB)
-- `ni/ri` — Part builders (LEDs, resistors, buttons, etc.)
-- `ji/Mi` — Wire builders (cables)
-- `Bi` — Controls (cámara, pan, zoom, rotate)
-- `Vi/Wi/na` — Interaction (raycaster, pick, select)
-- `Ma/Na/za` — Simulator (ejecución de sketches Arduino)
-- `Ya/uo` — Sound system (Web Audio API)
-
-### Stack
-
-- **Build tool:** Vite (Rollup)
-- **3D:** Three.js (WebGL, custom shaders, PMREM)
-- **Simulador:** Arduino simulator custom (no usa Wokwi ni simulador externo)
-- **Audio:** Web Audio API (tones, melodías)
-- **Fuentes:** Barlow Semi Condensed + JetBrains Mono (self-hosted woff2)
-- **Sin dependencias externas:** Todo es self-contained
-
-## Uso
+### 1) Install dependencies
 
 ```bash
-# Opción 1: Vite dev server
 npm install
+```
+
+### 2) Start the dev server
+
+```bash
 npm run dev
+```
 
-# Opción 2: Server estático simple
+### 3) Open the app
+
+Visit:
+
+```text
+http://localhost:3000
+```
+
+### Alternative static serving
+
+```bash
 npx serve -s . -l 3000
+```
 
-# Opción 3: Python
+Or:
+
+```bash
 python3 -m http.server 3000
 ```
 
-Abrir `http://localhost:3000`
+## Lesson set
 
-## Análisis de código
+The app includes 11 lessons:
 
-Las versiones de-minificadas están en `analysis/`. Usar para:
+1. **board** — Intro to the Arduino Uno board
+2. **blink** — LED blinking with `digitalWrite` and delays
+3. **button** — Button input with pull-down resistors
+4. **knob** — Potentiometer and analog input
+5. **rgb** — RGB LED and PWM mixing
+6. **light** — Light-sensing with an LDR
+7. **sensor** — Ultrasonic sensor readings
+8. **sound** — Buzzer and tone generation
+9. **motor** — DC motor control with a transistor
+10. **servo** — Servo movement patterns
+11. **project** — Combined project with multiple components
 
-- Entender la arquitectura de la app
-- Modificar lecciones existentes o añadir nuevas
-- Estudiar el simulador Arduino
-- Estudiar el rendering 3D con Three.js
+## Architecture notes
 
-## Notas
+### Main JS bundles
 
-- El código fue de-minificado con Prettier 3.3.3
-- Los nombres de variables son los del minificador (single-letter), pero la estructura es legible
-- No hay source maps disponibles (403/404 en Vercel)
-- La app es 100% client-side, sin backend
-- Autor original: Dilum Sanjaya (@DilumSanjaya)
+| Bundle | Size | Purpose |
+|---|---:|---|
+| `index-DUxJjXqx.js` | 88KB | App logic, lessons, simulator, UI state |
+| `stage-btHE6-0n.js` | 404KB | 3D board rendering and simulation |
+| `kit-Ce41oYCW.js` | 283KB | Three.js core helpers and rendering pipeline |
+| `thumbs-gagaX1E4.js` | 4KB | Lesson thumbnail rendering |
+
+### Core concepts
+
+- `BoardStage` — main 3D board controller
+- `LessonList` — lesson navigation and selection
+- `CodePanel` — editor and serial monitor UI
+- `Inspector` — component property and metadata panel
+- `Callouts` — annotations placed in the 3D board
+- `HintSystem` — in-context guidance and tooltips
+- `Simulator` — executes Arduino-like behavior in the browser
+
+## Tech stack
+
+- **Build tool:** Vite
+- **3D rendering:** Three.js
+- **Audio:** Web Audio API
+- **UI:** Custom client-side interface components
+- **Runtime model:** Fully browser-based, no backend required
+
+## Why this repo exists
+
+This repository serves as a reference and learning aid for understanding how a complex educational interactive app is structured. The `analysis/` folder contains de-minified sources so the code can be inspected more easily than in the production bundle.
+
+## Code analysis
+
+The de-minified versions are available in `analysis/` and are useful for:
+
+- understanding the app architecture
+- modifying existing lessons
+- adding new tutorial modules
+- studying the Arduino simulation logic
+- inspecting the 3D rendering pipeline
+
+## Notes
+
+- The code was de-minified using Prettier 3.3.3.
+- Variable names are intentionally minified, but the structure remains readable.
+- No source maps are available from the original deployment.
+- The app is 100% client-side and has no server-side logic.
+- Original author: Dilum Sanjaya (@DilumSanjaya)
+- Stay breezy 
+- PEACE, IRONMAN out
+
 # arduino
