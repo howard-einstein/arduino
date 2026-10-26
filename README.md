@@ -1,6 +1,6 @@
-# Learn Arduino — Clone
+# Learn Arduino 
 
-A complete clone of the interactive Arduino learning experience from `learn-arduino-red.vercel.app`, rebuilt as a client-side web app with a 3D board view and lesson-based learning flow.
+A  clone of the interactive Arduino learning experience from `learn-arduino-red.vercel.app`, rebuilt as a client-side web app with a 3D board view and lesson-based learning flow.
 
 This project explores how an educational Arduino simulator can be packaged in a browser using Three.js, custom UI panels, interactive components, and code-based exercises.
 
