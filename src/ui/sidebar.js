@@ -145,6 +145,7 @@ export class Sidebar {
         ${row('grid', 'Floor grid', 'Subtle guide lines under the board')}
         ${row('autoRotate', 'Auto-rotate', 'Soft continuous turn while the view is idle')}
         ${row('sound', 'Audio effects', 'Allow the buzzer to emit real sound through the speakers')}
+        ${row('darkMode', 'Dark mode', 'Switch to a high-contrast night theme')}
         ${row('reducedMotion', 'Reduce animations', 'Direct transitions without heavy acceleration')}
       </ul>
       <button class="fly-reset" data-reset>Reset progress</button>`;

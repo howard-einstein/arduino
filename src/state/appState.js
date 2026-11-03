@@ -38,6 +38,7 @@ export function loadSettings() {
     grid: true,
     autoRotate: false,
     sound: true,
+    darkMode: window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false,
     reducedMotion: window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false,
   };
   return { ...defaults, ...loadStorage('learn-arduino:settings', {}) };

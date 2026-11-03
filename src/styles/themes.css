@@ -31,17 +31,56 @@ html[data-theme="swiss-blueprint"] {
   color-scheme: light;
 }
 
+html[data-theme="swiss-blueprint-dark"] {
+  --bg: #09111d;
+  --bg-deep: #0f172a;
+  --sidebar: #101b2b;
+  --card: #111d2f;
+  --card-soft: rgba(17, 29, 47, 0.96);
+  --code-bg: #0f1b2d;
+  --line: #7cc3ff;
+  --line-soft: #394c6f;
+  --navy: #dfeaf9;
+  --navy-2: #93c5fd;
+  --ink: #e2e8f0;
+  --muted: #9fb3cd;
+  --faint: #6b7d9b;
+  --teal: #7cc3ff;
+  --teal-deep: #9ad1ff;
+  --trace: #93c5fd;
+  --track: #1d3559;
+  --kw: #7cc3ff;
+  --fn: #fca5a5;
+  --gutter: #94a3b8;
+  --sans: "Barlow", -apple-system, sans-serif;
+  color-scheme: dark;
+}
+
 body {
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(0, 71, 187, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 71, 187, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(124, 195, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 195, 255, 0.08) 1px, transparent 1px);
   background-size: 20px 20px;
   color: var(--navy);
 }
 
+.sidebar,
+ .viewbar,
+ .progress-card,
+ .clock,
+ .lesson,
+ .callout,
+ .card,
+ .info-card,
+ .code-card,
+ .flyout {
+  background: var(--card);
+  border-color: var(--line);
+}
+
 .sidebar {
-  background: #ffffff;
+  background: var(--sidebar);
   border-right: 1.5px solid var(--line);
 }
 
@@ -52,49 +91,47 @@ body {
 .clock,
 .lesson-card,
 .flyout {
-  background: #ffffff;
   border-radius: 4px;
-  border: 1.5px solid #0047bb;
+  border: 1.5px solid var(--line);
   box-shadow: 4px 4px 0 rgba(0, 71, 187, 0.12);
 }
 
 .callout {
   border-radius: 3px;
-  border: 1.5px solid #0047bb;
-  box-shadow: 3px 3px 0 rgba(0, 71, 187, 0.18);
-  background: #ffffff;
+  border: 1.5px solid var(--line);
+  box-shadow: 3px 3px 0 rgba(124, 195, 255, 0.18);
+  background: var(--card);
 }
 
 .callout h3 {
-  color: #0047bb;
+  color: var(--teal);
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .callout-anchor {
-  border-color: #0047bb;
-  background: rgba(0, 71, 187, 0.15);
+  border-color: var(--line);
+  background: rgba(124, 195, 255, 0.15);
 }
 
 .leaders path {
-  stroke: #0047bb;
+  stroke: var(--line);
   stroke-dasharray: 4 2;
 }
 
 .viewbar {
-  background: #ffffff;
-  border: 1.5px solid #0047bb;
+  border: 1.5px solid var(--line);
   box-shadow: 3px 3px 0 rgba(0, 71, 187, 0.12);
 }
 
 .lesson {
   border-radius: 4px;
-  border: 1.5px solid #cbd5e1;
-  background: #ffffff;
+  border: 1.5px solid var(--line-soft);
+  background: var(--card);
 }
 
 .lesson.is-on {
-  border-color: #0047bb;
-  box-shadow: 3px 3px 0 #0047bb;
+  border-color: var(--line);
+  box-shadow: 3px 3px 0 var(--line);
 }

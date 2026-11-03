@@ -186,6 +186,19 @@ function updateProgressUI() {
     trackEl.setAttribute('aria-valuemax', String(total));
   }
 }
+
+function applyTheme(isDarkMode) {
+  const themeName = isDarkMode ? 'swiss-blueprint-dark' : 'swiss-blueprint';
+  document.documentElement.dataset.theme = themeName;
+  document.documentElement.style.colorScheme = isDarkMode ? 'dark' : 'light';
+
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeMeta) themeMeta.setAttribute('content', isDarkMode ? '#09111d' : '#f4f7fb');
+
+  const schemeMeta = document.querySelector('meta[name="color-scheme"]');
+  if (schemeMeta) schemeMeta.setAttribute('content', isDarkMode ? 'dark' : 'light');
+}
+
 updateProgressUI();
 
 function updateSetting(key, val) {
@@ -195,11 +208,14 @@ function updateSetting(key, val) {
   if (key === 'labels') callouts.setVisible(val);
   if (key === 'grid') stage?.setGrid(val);
   if (key === 'autoRotate' && stage) stage.autoRotate = val;
+  if (key === 'darkMode') applyTheme(val);
   if (key === 'reducedMotion') {
     stage?.setReducedMotion(val);
     document.documentElement.classList.toggle('reduce-motion', val);
   }
 }
+
+applyTheme(state.settings.darkMode);
 
 function setParam(key, value, { fromSim = false } = {}) {
   const lesson = state.lesson;
