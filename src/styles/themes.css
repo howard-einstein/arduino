@@ -135,3 +135,15 @@ body {
   border-color: var(--line);
   box-shadow: 3px 3px 0 var(--line);
 }
+
+.app-foot {
+  display: flex;
+  position: absolute;
+  right: 24px;
+  bottom: 14px;
+  z-index: 3;
+}
+
+html.compact .app-foot {
+  position: static;
+}
